@@ -1,66 +1,118 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>8000ers Explorer</title>
-    <link rel="stylesheet" href="assets/css/main.css">
-</head>
-<body>
-    <div id="particles-js"></div>
+---
+layout: default
+---
+<div class="calculator-box">
+  <h2>3D Print Cost Estimator</h2>
+  
+  <!-- Material Settings -->
+  <div class="section-group">
+    <h3>Material Settings</h3>
+    <div class="input-group">
+      <label for="filamentType">Filament Type:</label>
+      <select id="filamentType" onchange="updateDefaultValues()">
+        <option value="pla">PLA</option>
+        <option value="abs">ABS</option>
+        <option value="petg">PETG</option>
+        <option value="tpu">TPU</option>
+        <option value="custom">Custom</option>
+      </select>
+    </div>
     
-    <header>
-        <nav>
-            <ul>
-                <li><a href="#home" data-scroll>Home</a></li>
-                <li><a href="#visualization" data-scroll>8000ers</a></li>
-                <li><a href="#about" data-scroll>About</a></li>
-            </ul>
-        </nav>
-    </header>
+    <div class="input-group">
+      <label for="filamentCost">Filament Cost (per kg):</label>
+      <div class="input-with-unit">
+        <input type="number" id="filamentCost" value="20" step="0.01">
+        <span class="unit">$/kg</span>
+      </div>
+    </div>
 
-    <main>
-        <!-- Home Section -->
-        <section id="home" class="hero">
-            <div class="container">
-                <h1>8000ers Explorer</h1>
-                <p class="tagline">Visual Journey Through the World's Highest Peaks</p>
-                <div class="cta-buttons">
-                    <a href="#visualization" class="btn primary" data-scroll>Explore Peaks</a>
-                    <a href="#about" class="btn secondary" data-scroll>Learn More</a>
-                </div>
-            </div>
-        </section>
+    <div class="input-group">
+      <label for="printWeight">Estimated Print Weight (g):</label>
+      <div class="input-with-unit">
+        <input type="number" id="printWeight" value="100" step="0.1">
+        <span class="unit">g</span>
+      </div>
+    </div>
+  </div>
 
-        <!-- Visualization Section -->
-        <section id="visualization" class="visualization-section">
-            <div class="viz-container">
-                <div id="mountain-viz"></div>
-                <div id="mountain-info" class="mountain-info">
-                    <h3>Select a mountain</h3>
-                    <div class="info-content"></div>
-                </div>
-            </div>
-        </section>
+  <!-- Time & Power Settings -->
+  <div class="section-group">
+    <h3>Time & Power Settings</h3>
+    <div class="input-group">
+      <label for="printTime">Estimated Print Time:</label>
+      <div class="time-inputs">
+        <input type="number" id="printHours" value="3" min="0" placeholder="Hours">
+        <span>h</span>
+        <input type="number" id="printMinutes" value="0" min="0" max="59" placeholder="Minutes">
+        <span>m</span>
+      </div>
+    </div>
 
-        <!-- About Section -->
-        <section id="about" class="about">
-            <div class="container">
-                <h2>About This Project</h2>
-                <p>An interactive exploration of the fourteen 8000-meter peaks in the world.</p>
-            </div>
-        </section>
-    </main>
+    <div class="input-group">
+      <label for="electricityCost">Electricity Cost:</label>
+      <div class="input-with-unit">
+        <input type="number" id="electricityCost" value="0.12" step="0.01">
+        <span class="unit">$/kWh</span>
+      </div>
+    </div>
 
-    <footer>
-        <div class="container">
-            <p>&copy; 2024 Vishal Patra. All rights reserved.</p>
-        </div>
-    </footer>
+    <div class="input-group">
+      <label for="printerWattage">Printer Power Usage:</label>
+      <div class="input-with-unit">
+        <input type="number" id="printerWattage" value="150" step="1">
+        <span class="unit">W</span>
+      </div>
+    </div>
+  </div>
 
-    <script src="https://d3js.org/d3.v7.min.js"></script>
-    <script src="assets/js/vendor/particles.js"></script>
-    <script src="assets/js/vendor/sweet-scroll.min.js"></script>
-    <script src="assets/js/main.js"></script>
-</body>
-</html>
+  <!-- Additional Costs -->
+  <div class="section-group">
+    <h3>Additional Costs</h3>
+    <div class="input-group">
+      <label for="failureRate">Failure Rate:</label>
+      <div class="input-with-unit">
+        <input type="number" id="failureRate" value="10" min="0" max="100" step="1">
+        <span class="unit">%</span>
+      </div>
+    </div>
+
+    <div class="input-group">
+      <label for="laborCost">Labor Cost (per hour):</label>
+      <div class="input-with-unit">
+        <input type="number" id="laborCost" value="0" step="0.01">
+        <span class="unit">$/h</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="button-group">
+    <button onclick="calculateCost()" class="calculate-btn">Calculate Cost</button>
+    <button onclick="resetForm()" class="reset-btn">Reset</button>
+  </div>
+
+  <div class="results" id="results">
+    <h3>Cost Breakdown</h3>
+    <div class="cost-grid">
+      <div class="cost-item">
+        <label>Material:</label>
+        <span id="materialCost">$0.00</span>
+      </div>
+      <div class="cost-item">
+        <label>Electricity:</label>
+        <span id="powerCost">$0.00</span>
+      </div>
+      <div class="cost-item">
+        <label>Risk Cost:</label>
+        <span id="riskCost">$0.00</span>
+      </div>
+      <div class="cost-item">
+        <label>Labor:</label>
+        <span id="laborCostResult">$0.00</span>
+      </div>
+    </div>
+    <div class="total-cost">
+      <label>Total Cost:</label>
+      <span id="totalCost">$0.00</span>
+    </div>
+  </div>
+</div>

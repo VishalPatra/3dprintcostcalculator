@@ -1,17 +1,16 @@
 # Site settings
-title: 8000ers Explorer
-description: Interactive Map of the World's Highest Peaks
-baseurl: ""
-url: "https://vishalpatra.github.io"
+
+title: 3D Print Cost Calculator
+description: Free online calculator for estimating 3D printing costs including materials, electricity, and labor
+baseurl: "" # the subpath of your site, e.g. /blog/
+url: "https://vishalpatra.github.io" # the base hostname & protocol for your site
 
 # User settings
-username: Vishalpatra
-user_description: Bicycle rights irony actually neutra typewriter lyft. Man bun taxidermy put a bird on it, umami yr ramps pop-up ugh bushwick chia lo-fi. Occupy bitters pour-over snackwave you probably haven't heard of them small batch. Cornhole mustache man bun letterpress echo park VHS.
-user_title: Front-End Developer
-email: vishalpatra@outlook.com
-twitter_username: notvishalpatra
-github_username:  Vishalpatra
-gplus_username:  Vishalpatra
+username: Vishal Patra
+user_description: A simple, responsive calculator for estimating 3D printing costs
+user_title: 3D Print Cost Calculator
+email: your-email@domain.com
+github_username: vishalpatra
 
 # Google-analytics
 google-analytics:
