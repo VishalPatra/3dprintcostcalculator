@@ -1,4 +1,14 @@
-_site
-.sass-cache
-node_modules
-.DS_STORE
+# Build output
+dist/*
+!dist/.gitkeep
+assets/
+
+# Dependencies
+node_modules/
+
+# Cache files
+.sass-cache/
+.DS_Store
+
+# Logs
+*.log
