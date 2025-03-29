@@ -229,7 +229,7 @@ body.disco-mode {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    padding: 85px 15px 30px;
+    padding: 70px 15px 30px;
     position: relative;
     width: 100%;
     margin: 0 auto;
@@ -795,12 +795,6 @@ body.disco-mode {
     }
 }
 
-@media (min-width: 768px) {
-    .calculator-wrapper {
-        padding-top: 100px;
-    }
-}
-
 @media (min-width: 992px) {
     .header {
         top: 40px;
@@ -815,7 +809,7 @@ body.disco-mode {
     }
     
     .calculator-wrapper {
-        padding-top: 110px;
+        padding-top: 80px;
         height: 100vh;
         align-items: center;
     }

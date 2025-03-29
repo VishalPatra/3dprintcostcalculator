@@ -6,41 +6,23 @@
   --blog-card-dark-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
   --blog-content-bg: rgba(255, 255, 255, 0.6);
   --blog-content-dark-bg: rgba(52, 58, 64, 0.6);
-  --blog-title-color: #212529;
-  --blog-title-dark-color: #f8f9fa;
 }
 
 /* Blog wrapper */
 .blog-wrapper {
   max-width: 800px;
-  margin: 6rem auto 3rem; /* Return to original margin */
+  margin: 6rem auto 3rem;
   padding: 2rem;
   background: var(--blog-bg);
   border-radius: 15px;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  position: relative;
-  z-index: 10;
 }
 
 .dark-mode .blog-wrapper {
   background: var(--blog-dark-bg);
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
-}
-
-/* Blog title */
-.blog-wrapper h1 {
-  font-size: 2.5rem;
-  font-weight: 700;
-  color: var(--blog-title-color);
-  margin: 1.5rem 0 2rem;
-  text-align: center;
-  position: relative;
-}
-
-.dark-mode .blog-wrapper h1 {
-  color: var(--blog-title-dark-color);
 }
 
 /* Breadcrumb navigation */
@@ -194,17 +176,10 @@
   font-weight: 700;
   margin-bottom: 1rem;
   color: var(--light-text);
-  text-align: center;
-  position: relative;
-  z-index: 5;
-  background: rgba(255, 255, 255, 0.2);
-  padding: 0.5rem;
-  border-radius: 0.5rem;
 }
 
 .dark-mode .blog-post h1 {
   color: var(--dark-text);
-  background: rgba(0, 0, 0, 0.2);
 }
 
 .blog-post-meta {
@@ -213,7 +188,6 @@
   font-size: 0.9rem;
   display: flex;
   gap: 1rem;
-  justify-content: center;
 }
 
 .dark-mode .blog-post-meta {
@@ -440,11 +414,6 @@
     padding: 3rem;
   }
   
-  .blog-wrapper h1 {
-    font-size: 2.8rem;
-    margin: 1rem 0 2rem;
-  }
-  
   .blog-post h1 {
     font-size: 2.25rem;
   }
@@ -461,27 +430,18 @@
 
 @media (min-width: 768px) {
   .blog-wrapper {
-    margin-top: 7rem; /* Slightly increased margin for medium screens */
+    margin-top: 7rem;
   }
   
   .blog-content {
     padding: 3rem;
-  }
-  
-  .blog-wrapper h1 {
-    font-size: 3rem;
   }
 }
 
 @media (min-width: 992px) {
   .blog-wrapper {
     max-width: 1000px;
-    margin-top: 8rem; /* Increased margin for large screens */
-  }
-  
-  .blog-wrapper h1 {
-    font-size: 3.2rem;
-    margin: 1rem 0 2.5rem;
+    margin-top: 8rem;
   }
   
   .blog-post h1 {
