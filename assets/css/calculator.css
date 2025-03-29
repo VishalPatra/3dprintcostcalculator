@@ -144,7 +144,7 @@ body.disco-mode {
     margin-right: 0.5rem;
 }
 
-.theme-toggle, .disco-toggle {
+.theme-toggle, .disco-toggle, .blog-toggle {
     color: #fff;
     font-size: 1.2rem;
     background: transparent;
@@ -158,9 +158,10 @@ body.disco-mode {
     align-items: center;
     justify-content: center;
     transition: all 0.3s ease;
+    margin-left: 0.5rem;
 }
 
-.theme-toggle:hover, .disco-toggle:hover {
+.theme-toggle:hover, .disco-toggle:hover, .blog-toggle:hover {
     background: rgba(255, 255, 255, 0.1);
 }
 
@@ -235,7 +236,7 @@ body.disco-mode {
 }
 
 .calculator-box {
-    background: rgba(255, 255, 255, 0.7);
+    background: rgba(255, 255, 255, 0.8);
     padding: 1.5rem;
     border-radius: 15px;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
@@ -251,7 +252,7 @@ body.disco-mode {
 }
 
 .dark-mode .calculator-box {
-    background: rgba(33, 37, 41, 0.7);
+    background: rgba(33, 37, 41, 0.8);
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
 }
 
