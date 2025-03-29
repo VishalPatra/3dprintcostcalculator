@@ -6,6 +6,8 @@
   --blog-card-dark-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
   --blog-content-bg: rgba(255, 255, 255, 0.6);
   --blog-content-dark-bg: rgba(52, 58, 64, 0.6);
+  --blog-title-color: #212529;
+  --blog-title-dark-color: #f8f9fa;
 }
 
 /* Blog wrapper */
@@ -25,21 +27,27 @@
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
 }
 
-/* Blog title - making sure it's visible */
-.blog-wrapper > h1 {
-  font-size: 2.2rem;
+/* Blog title - ensuring visibility */
+.blog-wrapper h1 {
+  font-size: 2.5rem;
   font-weight: 700;
-  color: var(--light-text);
-  margin: 1rem 0 1.5rem;
+  color: var(--blog-title-color);
+  margin: 1.5rem 0 2rem;
   text-align: center;
   position: relative;
   z-index: 5;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 0.2);
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  display: block;
+  width: 100%;
 }
 
-.dark-mode .blog-wrapper > h1 {
-  color: var(--dark-text);
+.dark-mode .blog-wrapper h1 {
+  color: var(--blog-title-dark-color);
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  background: rgba(0, 0, 0, 0.2);
 }
 
 /* Breadcrumb navigation */
@@ -196,10 +204,14 @@
   text-align: center;
   position: relative;
   z-index: 5;
+  background: rgba(255, 255, 255, 0.2);
+  padding: 0.5rem;
+  border-radius: 0.5rem;
 }
 
 .dark-mode .blog-post h1 {
   color: var(--dark-text);
+  background: rgba(0, 0, 0, 0.2);
 }
 
 .blog-post-meta {
@@ -435,8 +447,8 @@
     padding: 3rem;
   }
   
-  .blog-wrapper > h1 {
-    font-size: 2.5rem;
+  .blog-wrapper h1 {
+    font-size: 2.8rem;
     margin: 1rem 0 2rem;
   }
   
@@ -462,6 +474,10 @@
   .blog-content {
     padding: 3rem;
   }
+  
+  .blog-wrapper h1 {
+    font-size: 3rem;
+  }
 }
 
 @media (min-width: 992px) {
@@ -470,8 +486,8 @@
     margin-top: 8rem;
   }
   
-  .blog-wrapper > h1 {
-    font-size: 2.8rem;
+  .blog-wrapper h1 {
+    font-size: 3.2rem;
     margin: 1rem 0 2.5rem;
   }
   
