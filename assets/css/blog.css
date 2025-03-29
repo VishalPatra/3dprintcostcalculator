@@ -13,13 +13,15 @@
 /* Blog wrapper */
 .blog-wrapper {
   max-width: 800px;
-  margin: 6rem auto 3rem;
+  margin: 120px auto 3rem;
   padding: 2rem;
   background: var(--blog-bg);
   border-radius: 15px;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
+  position: relative;
+  z-index: 10;
 }
 
 .dark-mode .blog-wrapper {
@@ -468,7 +470,7 @@
 
 @media (min-width: 768px) {
   .blog-wrapper {
-    margin-top: 7rem;
+    margin-top: 140px; /* Slightly more on medium screens */
   }
   
   .blog-content {
@@ -483,7 +485,7 @@
 @media (min-width: 992px) {
   .blog-wrapper {
     max-width: 1000px;
-    margin-top: 8rem;
+    margin-top: 150px; /* Consistent spacing that works */
   }
   
   .blog-wrapper h1 {
