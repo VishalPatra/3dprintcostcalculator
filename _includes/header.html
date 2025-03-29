@@ -1,15 +1,19 @@
-<nav class="navbar navbar-expand-lg navbar-dark fixed-top">
-  <div class="container d-flex justify-content-between align-items-center">
-    <div class="w-40">
+<nav class="navbar navbar-expand-lg navbar-dark">
+  <div class="container">
+    <div class="d-flex align-items-center">
       <img src="{{ "/assets/img/3d-printer-icon.svg" | prepend: site.baseurl }}" alt="3D Printer" class="navbar-icon">
+      <a class="navbar-brand" href="{{ site.baseurl }}/">3D Print Calculator</a>
     </div>
-    <a class="navbar-brand" href="#">3D Print Calculator</a>
-    <div class="d-flex">
+    <div class="navbar-links">
+      <a href="{{ site.baseurl }}/blog/" class="nav-link">Blog</a>
+    </div>
+    <div class="navbar-controls">
       <button id="discoToggle" class="disco-toggle" aria-label="Toggle disco mode">
         <i class="fas fa-music"></i>
       </button>
-      <button id="themeToggle" class="theme-toggle ms-2" aria-label="Toggle dark mode">
+      <button id="themeToggle" class="theme-toggle" aria-label="Toggle dark mode">
         <i class="fas fa-sun"></i>
+        <i class="fas fa-moon"></i>
       </button>
     </div>
   </div>

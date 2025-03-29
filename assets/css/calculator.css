@@ -115,33 +115,43 @@ body.disco-mode {
 
 /* Navbar styles */
 .navbar {
-    background-color: rgba(36, 41, 46, 0.9);
+    background-color: rgba(36, 41, 46, 0.95);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
     padding: 0.8rem 1rem;
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     z-index: 1000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.3s ease;
 }
 
 .dark-mode .navbar {
-    background-color: rgba(18, 20, 23, 0.9);
+    background-color: rgba(18, 20, 23, 0.95);
 }
 
 .navbar-brand {
     font-size: 1.2rem;
     font-weight: 600;
-    margin: 0 auto;
+    color: #fff;
+    text-decoration: none;
 }
 
 .navbar-icon {
     height: 24px;
     width: auto;
-    color: #fff;
     margin-right: 0.5rem;
+    vertical-align: middle;
+}
+
+.navbar-controls {
+    display: flex;
+    align-items: center;
 }
 
 .theme-toggle, .disco-toggle {
@@ -158,21 +168,43 @@ body.disco-mode {
     align-items: center;
     justify-content: center;
     transition: all 0.3s ease;
+    margin-left: 0.5rem;
 }
 
 .theme-toggle:hover, .disco-toggle:hover {
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.2);
+    transform: scale(1.1);
 }
 
-.disco-toggle.active {
-    color: #fd7e14;
-    animation: pulse 1.5s infinite;
+.theme-toggle:active, .disco-toggle:active {
+    transform: scale(0.95);
 }
 
-@keyframes pulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.1); }
-    100% { transform: scale(1); }
+.theme-toggle .fa-sun, 
+.theme-toggle .fa-moon {
+    transition: transform 0.5s ease, opacity 0.5s ease;
+}
+
+.dark-mode .theme-toggle .fa-sun {
+    opacity: 0;
+    transform: rotate(180deg) scale(0);
+    position: absolute;
+}
+
+.dark-mode .theme-toggle .fa-moon {
+    opacity: 1;
+    transform: rotate(0) scale(1);
+}
+
+.theme-toggle .fa-moon {
+    opacity: 0;
+    transform: rotate(-180deg) scale(0);
+    position: absolute;
+}
+
+.theme-toggle .fa-sun {
+    opacity: 1;
+    transform: rotate(0) scale(1);
 }
 
 /* Floating reset button */
@@ -228,10 +260,11 @@ body.disco-mode {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    padding: 70px 15px 30px;
+    padding: 80px 15px 30px;
     position: relative;
     width: 100%;
     margin: 0 auto;
+    max-width: 100%;
 }
 
 .calculator-box {
@@ -612,43 +645,76 @@ body.disco-mode {
 }
 
 .footer {
-    background: rgba(36, 41, 46, 0.9);
-    padding: 15px 0;
+    background: rgba(36, 41, 46, 0.95);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    padding: 1.5rem 0;
     text-align: center;
+    color: #fff;
     position: relative;
     z-index: 10;
-    backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px);
-    box-shadow: 0 -3px 10px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.2);
 }
 
 .dark-mode .footer {
-    background: rgba(18, 20, 23, 0.9);
+    background: rgba(18, 20, 23, 0.95);
 }
 
 .footer p {
     margin: 0;
-    color: #fff;
+    font-size: 0.9rem;
 }
 
 .footer a {
-    color: var(--light-link);
     text-decoration: none;
-    transition: color 0.3s;
-    text-decoration: underline;
+    color: #fff;
+    transition: color 0.3s ease;
+    font-weight: 500;
 }
 
 .dark-mode .footer a {
-    color: var(--dark-link);
+    color: #9bf0ff;
 }
 
 .footer a:hover {
-    color: var(--light-link-hover);
+    color: #74c0fc;
     text-decoration: underline;
 }
 
 .dark-mode .footer a:hover {
-    color: var(--dark-link-hover);
+    color: #d0f5ff;
+}
+
+.social-links {
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+    gap: 1rem;
+}
+
+.social-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    font-size: 1.2rem;
+    transition: all 0.3s ease;
+}
+
+.social-link:hover {
+    background: #fff;
+    color: #24292e;
+    transform: translateY(-3px);
+    text-decoration: none;
+}
+
+.dark-mode .social-link:hover {
+    background: #9bf0ff;
+    color: #121212;
 }
 
 /* Responsive styles */
@@ -705,46 +771,47 @@ body.disco-mode {
 
 @media (min-width: 992px) {
     .header {
-        top: 40px;
+        top: 30px;
     }
-    
+
     .header .site-title {
-        font-size: 44px;
+        font-size: 45px;
     }
-    
+
     .header .site-description {
         font-size: 22px;
     }
     
     .calculator-wrapper {
-        padding-top: 80px;
-        height: 100vh;
-        align-items: center;
+        padding-top: 90px;
+        padding-bottom: 40px;
+        max-width: 1200px;
+        margin: 0 auto;
     }
     
     .calculator-box {
-        max-width: 900px; /* Wider for desktop */
-        padding: 2.5rem;
+        max-width: 800px;
         display: grid;
         grid-template-columns: repeat(2, 1fr);
-        grid-column-gap: 2rem;
+        grid-template-rows: auto auto auto auto auto;
+        gap: 1rem;
         grid-template-areas:
             "title title"
-            "materials time"
+            "material time"
             "additional additional"
-            "calculate calculate"
-            "results results";
-        max-height: calc(100vh - 140px);
-        overflow-y: auto;
+            "buttons buttons"
+            "results results"
+            "ads ads";
     }
     
     .calculator-box h2 {
-        font-size: 2rem;
         grid-area: title;
+        text-align: center;
+        margin-bottom: 1rem;
     }
     
     .calculator-box .section-group:nth-child(2) {
-        grid-area: materials;
+        grid-area: material;
     }
     
     .calculator-box .section-group:nth-child(3) {
@@ -756,7 +823,7 @@ body.disco-mode {
     }
     
     .button-group {
-        grid-area: calculate;
+        grid-area: buttons;
     }
     
     .results {
@@ -768,25 +835,35 @@ body.disco-mode {
     }
     
     .calculate-btn, .reset-btn {
-        font-size: 1.2rem;
-        padding: 1rem;
+        font-size: 1.1rem;
     }
     
     .total-cost {
-        font-size: 1.3rem;
+        font-size: 1.4rem;
+    }
+    
+    .adsense-container {
+        grid-area: ads;
+        margin-top: 1.5rem;
     }
 }
 
-/* When screen is extra large, make the calculator even wider */
 @media (min-width: 1200px) {
     .calculator-box {
-        max-width: 1200px;
-        grid-column-gap: 3rem;
+        max-width: 1000px;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-areas:
+            "title title title"
+            "material time additional"
+            "buttons buttons buttons"
+            "results results results"
+            "ads ads ads";
     }
     
     .cost-grid {
+        display: grid;
         grid-template-columns: repeat(4, 1fr);
-        gap: 1.5rem;
+        gap: 1rem;
     }
 }
 
@@ -855,16 +932,20 @@ body.disco-mode {
 /* Ripple effect */
 .ripple {
     position: absolute;
-    background: rgba(255, 255, 255, 0.3);
+    background-color: rgba(255, 255, 255, 0.3);
     border-radius: 50%;
-    transform: scale(0);
+    opacity: 1;
     animation: ripple 0.6s linear;
     pointer-events: none;
 }
 
 @keyframes ripple {
-    to {
-        transform: scale(4);
+    0% {
+        transform: translate(-50%, -50%) scale(0);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(1);
         opacity: 0;
     }
 }
@@ -877,4 +958,47 @@ body.disco-mode {
 @keyframes disco-particles {
     0% { filter: hue-rotate(0deg); }
     100% { filter: hue-rotate(360deg); }
+}
+
+/* AdSense styling */
+.adsense-container {
+    margin-top: 2rem;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    min-height: 100px;
+}
+
+.dark-mode .adsense-container {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.adsense-placeholder {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    min-height: 90px;
+}
+
+.navbar-links {
+    display: flex;
+    margin: 0 1rem;
+}
+
+.nav-link {
+    color: rgba(255, 255, 255, 0.85);
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    font-weight: 500;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    border-radius: 4px;
+}
+
+.nav-link:hover {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.1);
 } 

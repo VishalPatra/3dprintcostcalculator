@@ -134,15 +134,12 @@ function initThemeToggle() {
   const themeToggle = document.getElementById('themeToggle');
   if (!themeToggle) return;
   
-  const themeIcon = themeToggle.querySelector('i');
   const body = document.body;
   
   // Check for saved user preference
   const savedTheme = localStorage.getItem('theme');
   if (savedTheme === 'dark') {
     body.classList.add('dark-mode');
-    themeIcon.classList.remove('fa-sun');
-    themeIcon.classList.add('fa-moon');
     updateParticlesColor('#74c0fc');
   }
   
@@ -150,18 +147,17 @@ function initThemeToggle() {
   themeToggle.addEventListener('click', () => {
     body.classList.toggle('dark-mode');
     
-    // Update icon
+    // Save preference
     if (body.classList.contains('dark-mode')) {
-      themeIcon.classList.remove('fa-sun');
-      themeIcon.classList.add('fa-moon');
       localStorage.setItem('theme', 'dark');
       updateParticlesColor('#74c0fc');
     } else {
-      themeIcon.classList.remove('fa-moon');
-      themeIcon.classList.add('fa-sun');
       localStorage.setItem('theme', 'light');
       updateParticlesColor('#4dabf7');
     }
+    
+    // Add ripple effect
+    addRippleEffect(themeToggle);
   });
 }
 
@@ -303,4 +299,25 @@ function hexToRgb(hex) {
   const b = parseInt(hex.substring(4, 6), 16);
   
   return { r, g, b };
+}
+
+// Add ripple effect to buttons
+function addRippleEffect(button) {
+  const ripple = document.createElement('span');
+  ripple.classList.add('ripple');
+  button.appendChild(ripple);
+  
+  const rect = button.getBoundingClientRect();
+  const size = Math.max(rect.width, rect.height);
+  
+  ripple.style.width = ripple.style.height = `${size}px`;
+  
+  ripple.style.left = '50%';
+  ripple.style.top = '50%';
+  ripple.style.transform = 'translate(-50%, -50%) scale(1)';
+  
+  // Remove ripple after animation completes
+  setTimeout(() => {
+    ripple.remove();
+  }, 600);
 }

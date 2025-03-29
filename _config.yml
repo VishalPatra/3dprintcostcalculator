@@ -10,9 +10,11 @@ user_description: A simple, responsive calculator for estimating 3D printing cos
 user_title: 3D Print Cost Calculator
 email: your-email@domain.com
 github_username: vishalpatra
+linkedin_username: vishalpatra
+instagram_username: thirddimensionalprints
 
 # Google-analytics
 google-analytics:
-  id: ""
+  id: "G-T2B1FTPQW8"
 
 exclude: ['package.json', 'src' , 'node_modules']
