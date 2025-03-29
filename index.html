@@ -1,223 +1,126 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    {% include head.html %}
-    <title>3D Print Cost Calculator - Calculate Your 3D Printing Costs</title>
-    <meta name="description" content="A free online tool to calculate the cost of your 3D prints. Account for materials, electricity, printer depreciation, and more.">
+---
+layout: default
+---
+<div class="calculator-box">
+  <h2>3D Print Cost Estimator</h2>
+  
+  <!-- Material Settings -->
+  <div class="section-group">
+    <h3>Material Settings</h3>
+    <div class="input-group">
+      <label for="filamentType">Filament Type:</label>
+      <select id="filamentType" onchange="updateDefaultValues()">
+        <option value="pla">PLA</option>
+        <option value="abs">ABS</option>
+        <option value="petg">PETG</option>
+        <option value="tpu">TPU</option>
+        <option value="custom">Custom</option>
+      </select>
+    </div>
     
-    <!-- Open Graph / Social Media Meta Tags -->
-    <meta property="og:title" content="3D Print Cost Calculator">
-    <meta property="og:description" content="Calculate the exact cost of your 3D prints with this free online tool">
-    <meta property="og:image" content="https://vishalpatra.github.io/3dprintcostcalculator/assets/img/og-image.jpg">
-    <meta property="og:url" content="https://vishalpatra.github.io/3dprintcostcalculator/">
-    <meta property="og:type" content="website">
-    
-    <!-- Twitter Card data -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="3D Print Cost Calculator">
-    <meta name="twitter:description" content="Calculate the exact cost of your 3D prints with this free online tool">
-    <meta name="twitter:image" content="https://vishalpatra.github.io/3dprintcostcalculator/assets/img/og-image.jpg">
-    
-    <!-- Canonical URL -->
-    <link rel="canonical" href="https://vishalpatra.github.io/3dprintcostcalculator/">
-    
-    <!-- Preload critical assets -->
-    <link rel="preload" href="assets/css/calculator.css" as="style">
-    <link rel="preload" href="assets/js/calculator.js" as="script">
-    <link rel="preload" href="assets/js/particles.min.js" as="script">
-</head>
-<body>
-    <!-- Particles.js Background -->
-    <div id="particles-js"></div>
+    <div class="input-group">
+      <label for="filamentCost">Filament Cost (per kg):</label>
+      <div class="input-with-unit">
+        <input type="number" id="filamentCost" value="20" step="0.01">
+        <span class="unit">$/kg</span>
+      </div>
+    </div>
 
-    <!-- Navigation Bar -->
-    {% include header.html %}
+    <div class="input-group">
+      <label for="printWeight">Estimated Print Weight (g):</label>
+      <div class="input-with-unit">
+        <input type="number" id="printWeight" value="100" step="0.1">
+        <span class="unit">g</span>
+      </div>
+    </div>
+  </div>
 
-    <!-- Main Calculator Section -->
-    <main class="calculator-wrapper">
-        <article class="calculator-box">
-            <h2>3D Print Cost Calculator</h2>
-            
-            <!-- Material Section -->
-            <section class="section-group">
-                <h3><i class="fas fa-cube"></i> Material</h3>
-                <div class="input-group">
-                    <label for="material-type">Material Type</label>
-                    <select id="material-type" aria-label="Material Type">
-                        <option value="pla">PLA</option>
-                        <option value="abs">ABS</option>
-                        <option value="petg">PETG</option>
-                        <option value="tpu">TPU / Flex</option>
-                        <option value="nylon">Nylon</option>
-                        <option value="pva">PVA</option>
-                        <option value="asa">ASA</option>
-                        <option value="pc">Polycarbonate</option>
-                        <option value="hips">HIPS</option>
-                        <option value="carbon-fiber">Carbon Fiber Fill</option>
-                        <option value="wood-fill">Wood Fill</option>
-                        <option value="metal-fill">Metal Fill</option>
-                        <option value="resin-standard">Resin (Standard)</option>
-                        <option value="resin-tough">Resin (Tough/Durable)</option>
-                        <option value="resin-dental">Resin (Dental/Medical)</option>
-                        <option value="resin-casting">Resin (Casting)</option>
-                    </select>
-                </div>
-                <div class="input-group">
-                    <label for="filament-weight">Weight of Material (g)</label>
-                    <div class="input-with-unit">
-                        <input type="number" id="filament-weight" value="100" min="0" step="1" inputmode="decimal" aria-label="Weight of material in grams">
-                        <span class="unit">g</span>
-                    </div>
-                </div>
-                <div class="input-group">
-                    <label for="material-cost">Material Cost (per kg)</label>
-                    <div class="input-with-unit">
-                        <input type="number" id="material-cost" value="25" min="0" step="0.01" inputmode="decimal" aria-label="Material cost per kilogram">
-                        <span class="unit">$/kg</span>
-                    </div>
-                </div>
-            </section>
-            
-            <!-- Time Section -->
-            <section class="section-group">
-                <h3><i class="fas fa-clock"></i> Print Time</h3>
-                <div class="input-group">
-                    <label for="print-hours">Print Duration</label>
-                    <div class="time-inputs">
-                        <input type="number" id="print-hours" value="5" min="0" step="1" inputmode="decimal" aria-label="Print hours">
-                        <span>h</span>
-                        <input type="number" id="print-minutes" value="30" min="0" max="59" step="1" inputmode="decimal" aria-label="Print minutes">
-                        <span>m</span>
-                    </div>
-                </div>
-                <div class="input-group">
-                    <label for="electricity-cost">Electricity Cost</label>
-                    <div class="input-with-unit">
-                        <input type="number" id="electricity-cost" value="0.15" min="0" step="0.01" inputmode="decimal" aria-label="Electricity cost per kilowatt-hour">
-                        <span class="unit">$/kWh</span>
-                    </div>
-                </div>
-            </section>
-            
-            <!-- Additional Costs Section -->
-            <section class="section-group">
-                <h3><i class="fas fa-dollar-sign"></i> Additional Costs</h3>
-                <div class="input-group">
-                    <label for="printer-cost">Printer Cost</label>
-                    <div class="input-with-unit">
-                        <input type="number" id="printer-cost" value="400" min="0" step="1" inputmode="decimal" aria-label="3D printer cost">
-                        <span class="unit">$</span>
-                    </div>
-                </div>
-                <div class="input-group">
-                    <label for="maintenance-cost">Yearly Maintenance</label>
-                    <div class="input-with-unit">
-                        <input type="number" id="maintenance-cost" value="50" min="0" step="1" inputmode="decimal" aria-label="Yearly maintenance cost">
-                        <span class="unit">$/year</span>
-                    </div>
-                </div>
-                <div class="input-group">
-                    <label for="failure-rate">Print Failure Rate</label>
-                    <div class="input-with-unit">
-                        <input type="number" id="failure-rate" value="5" min="0" max="100" step="1" inputmode="decimal" aria-label="Print failure rate percentage">
-                        <span class="unit">%</span>
-                    </div>
-                </div>
-                <div class="input-group">
-                    <label for="profit-margin">Profit Margin</label>
-                    <div class="input-with-unit">
-                        <input type="number" id="profit-margin" value="30" min="0" step="1" inputmode="decimal" aria-label="Profit margin percentage">
-                        <span class="unit">%</span>
-                    </div>
-                </div>
-            </section>
-            
-            <!-- Action Buttons -->
-            <div class="button-group">
-                <button id="calculate-btn" class="calculate-btn" aria-label="Calculate costs">
-                    <i class="fas fa-calculator"></i> Calculate
-                </button>
-                <button id="reset-btn" class="reset-btn" aria-label="Reset calculator">
-                    <i class="fas fa-undo"></i> Reset
-                </button>
-            </div>
-            
-            <!-- Results Section -->
-            <section id="results" class="results">
-                <h3>Calculation Results</h3>
-                <div class="cost-grid">
-                    <div class="cost-item">
-                        <label>Material Cost:</label>
-                        <span id="material-cost-result">$0.00</span>
-                    </div>
-                    <div class="cost-item">
-                        <label>Electricity Cost:</label>
-                        <span id="electricity-cost-result">$0.00</span>
-                    </div>
-                    <div class="cost-item">
-                        <label>Wear &amp; Tear:</label>
-                        <span id="wear-tear-result">$0.00</span>
-                    </div>
-                    <div class="cost-item">
-                        <label>Failure Cost:</label>
-                        <span id="failure-cost-result">$0.00</span>
-                    </div>
-                </div>
-                <div class="cost-item">
-                    <label>Base Cost:</label>
-                    <span id="base-cost-result">$0.00</span>
-                </div>
-                <div class="cost-item">
-                    <label>Profit:</label>
-                    <span id="profit-result">$0.00</span>
-                </div>
-                <div class="total-cost">
-                    <label>Total Cost:</label>
-                    <span id="total-cost-result">$0.00</span>
-                </div>
-            </section>
-        </article>
-        
-        <!-- Ad Container (if needed) -->
-        <aside class="ad-container">
-            <div class="ad-label">Advertisement</div>
-            <div class="ad-placeholder">
-                <!-- AdSense code will go here -->
-                <ins class="adsbygoogle"
-                    style="display:block"
-                    data-ad-client="{{site.adsense}}"
-                    data-ad-slot="{{site.ad_slot}}"
-                    data-ad-format="auto"
-                    data-full-width-responsive="true"></ins>
-                <script>
-                    (adsbygoogle = window.adsbygoogle || []).push({});
-                </script>
-            </div>
-        </aside>
-    </main>
-    
-    <!-- Floating Reset Button -->
-    <button id="floating-reset-btn" class="floating-reset-btn" aria-label="Reset calculator">
-        <i class="fas fa-undo"></i>
-    </button>
-    
-    <!-- Footer -->
-    {% include footer.html %}
-    
-    <!-- Scripts -->
-    <script src="assets/js/particles.min.js" defer></script>
-    <script src="assets/js/calculator.js" defer></script>
-    
-    <!-- AdSense -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-    <script>
-        // Load AdSense after page is fully loaded
-        window.addEventListener('load', function() {
-            (adsbygoogle = window.adsbygoogle || []).push({
-                google_ad_client: "ca-pub-{{site.adsense}}",
-                enable_page_level_ads: true
-            });
-        });
-    </script>
-</body>
-</html>
+  <!-- Time & Power Settings -->
+  <div class="section-group">
+    <h3>Time & Power Settings</h3>
+    <div class="input-group">
+      <label for="printTime">Estimated Print Time:</label>
+      <div class="time-inputs">
+        <input type="number" id="printHours" value="3" min="0" placeholder="Hours">
+        <span>h</span>
+        <input type="number" id="printMinutes" value="0" min="0" max="59" placeholder="Minutes">
+        <span>m</span>
+      </div>
+    </div>
+
+    <div class="input-group">
+      <label for="electricityCost">Electricity Cost:</label>
+      <div class="input-with-unit">
+        <input type="number" id="electricityCost" value="0.12" step="0.01">
+        <span class="unit">$/kWh</span>
+      </div>
+    </div>
+
+    <div class="input-group">
+      <label for="printerWattage">Printer Power Usage:</label>
+      <div class="input-with-unit">
+        <input type="number" id="printerWattage" value="150" step="1">
+        <span class="unit">W</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Additional Costs -->
+  <div class="section-group">
+    <h3>Additional Costs</h3>
+    <div class="input-group">
+      <label for="failureRate">Failure Rate:</label>
+      <div class="input-with-unit">
+        <input type="number" id="failureRate" value="10" min="0" max="100" step="1">
+        <span class="unit">%</span>
+      </div>
+    </div>
+
+    <div class="input-group">
+      <label for="laborCost">Labor Cost (per hour):</label>
+      <div class="input-with-unit">
+        <input type="number" id="laborCost" value="0" step="0.01">
+        <span class="unit">$/h</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="button-group">
+    <button onclick="calculateCost()" class="calculate-btn">Calculate Cost</button>
+    <button onclick="resetForm()" class="reset-btn">Reset</button>
+  </div>
+
+  <div class="results" id="results">
+    <h3>Cost Breakdown</h3>
+    <div class="cost-grid">
+      <div class="cost-item">
+        <label>Material:</label>
+        <span id="materialCost">$0.00</span>
+      </div>
+      <div class="cost-item">
+        <label>Electricity:</label>
+        <span id="powerCost">$0.00</span>
+      </div>
+      <div class="cost-item">
+        <label>Risk Cost:</label>
+        <span id="riskCost">$0.00</span>
+      </div>
+      <div class="cost-item">
+        <label>Labor:</label>
+        <span id="laborCostResult">$0.00</span>
+      </div>
+    </div>
+    <div class="total-cost">
+      <label>Total Cost:</label>
+      <span id="totalCost">$0.00</span>
+    </div>
+  </div>
+</div>
+
+<!-- AdSense Ad -->
+<div class="ad-container mt-4">
+  <p class="ad-label">Advertisement</p>
+  <div class="ad-placeholder">
+    <!-- AdSense Ad Code Will Go Here -->
+  </div>
+</div>
