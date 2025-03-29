@@ -627,9 +627,36 @@ body.disco-mode {
     background: rgba(18, 20, 23, 0.9);
 }
 
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
 .footer p {
     margin: 0;
     color: #fff;
+}
+
+.social-links {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.social-links a {
+    color: #fff;
+    font-size: 1.2rem;
+    transition: all 0.3s ease;
+}
+
+.social-links a:hover {
+    color: var(--primary-color);
+    transform: translateY(-3px);
 }
 
 .footer a {
@@ -650,6 +677,11 @@ body.disco-mode {
 
 .dark-mode .footer a:hover {
     color: var(--dark-link-hover);
+}
+
+/* Mobile menu modifications */
+.mobile-menu {
+    display: none !important; /* Hide the mobile menu on all screens */
 }
 
 /* AdSense container */
@@ -689,6 +721,23 @@ body.disco-mode {
 
 .dark-mode .ad-placeholder {
     background: rgba(33, 37, 41, 0.5);
+}
+
+@media (max-width: 575.98px) {
+    .footer-content {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+    
+    .navbar-brand {
+        font-size: 0.9rem;
+    }
+    
+    .blog-toggle, .disco-toggle, .theme-toggle {
+        width: 36px;
+        height: 36px;
+        font-size: 0.9rem;
+    }
 }
 
 @media (min-width: 576px) {
