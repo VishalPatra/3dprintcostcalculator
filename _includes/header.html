@@ -4,10 +4,23 @@
       <img src="{{ "/assets/img/3d-printer-icon.svg" | prepend: site.baseurl }}" alt="3D Printer" class="navbar-icon">
       <a class="navbar-brand" href="{{ site.baseurl }}/">3D Print Calculator</a>
     </div>
-    <div class="navbar-links">
-      <a href="{{ site.baseurl }}/blog/" class="nav-link">Blog</a>
-    </div>
+    
     <div class="navbar-controls">
+      <!-- Blog link visible on desktop, hidden on mobile -->
+      <a href="{{ site.baseurl }}/blog/" class="nav-link d-none d-md-block">Blog</a>
+      
+      <!-- Blog dropdown icon visible only on mobile -->
+      <div class="dropdown d-md-none">
+        <button class="menu-toggle" type="button" aria-expanded="false" aria-label="Toggle menu" id="navDropdownToggle">
+          <i class="fas fa-bars"></i>
+        </button>
+        <div class="dropdown-menu dropdown-menu-end" id="navDropdownMenu">
+          <a href="{{ site.baseurl }}/blog/" class="dropdown-item">
+            <i class="fas fa-blog me-2"></i>Blog
+          </a>
+        </div>
+      </div>
+      
       <button id="discoToggle" class="disco-toggle" aria-label="Toggle disco mode">
         <i class="fas fa-music"></i>
       </button>
@@ -20,6 +33,20 @@
 </nav>
 
 <!-- Floating reset button for mobile -->
-<button id="floatingReset" class="floating-reset-btn d-none d-md-none">
+<button id="floatingReset" class="floating-reset-btn d-md-none">
   <i class="fas fa-sync-alt"></i>
 </button>
+
+<script>
+  // Handle mobile dropdown menu
+  document.getElementById('navDropdownToggle').addEventListener('click', function() {
+    document.getElementById('navDropdownMenu').classList.toggle('show');
+  });
+  
+  // Close dropdown when clicking outside
+  document.addEventListener('click', function(event) {
+    if (!event.target.closest('.dropdown')) {
+      document.getElementById('navDropdownMenu').classList.remove('show');
+    }
+  });
+</script>

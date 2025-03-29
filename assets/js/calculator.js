@@ -100,15 +100,47 @@ function initCalculator() {
         });
     }
     
+    // Set up floating reset button for mobile
+    const floatingResetBtn = document.getElementById('floatingReset');
+    if (floatingResetBtn) {
+        floatingResetBtn.addEventListener('click', function(event) {
+            resetForm();
+            
+            // Add haptic feedback for mobile devices if available
+            if (navigator.vibrate) {
+                navigator.vibrate(15);
+            }
+            
+            // Add a visual feedback animation to the button
+            this.classList.add('clicked');
+            setTimeout(() => this.classList.remove('clicked'), 200);
+            
+            // Show a ripple effect on the button
+            createRipple(this, event);
+        });
+        
+        // Show floating button when scrolling down on mobile
+        window.addEventListener('scroll', toggleFloatingButton);
+    }
+    
     // Handle orientation changes
     window.addEventListener('orientationchange', () => {
         setTimeout(updateLayout, 300);
     });
+
+    // Handle resize events for better responsiveness
+    window.addEventListener('resize', debounce(function() {
+        updateLayout();
+        adjustForKeyboard();
+    }, 250));
     
     // Initialize calculator with default values
     updateDefaultValues();
     calculateCost();
     updateLayout();
+    
+    // Initialize theme based on user preferences
+    initTheme();
 }
 
 // Create a ripple effect for buttons
@@ -148,14 +180,101 @@ function createRipple(button, e) {
 function updateLayout() {
     // Adjust UI based on viewport height
     const vh = window.innerHeight;
+    const vw = window.innerWidth;
     const calculator = document.querySelector('.calculator-box');
     
-    if (vh < 600) {
-        // For very small screens (like landscape on phone)
+    if (!calculator) return;
+    
+    if (vh < 600 || (vh < 500 && vw > vh)) {
+        // For very small screens or landscape mode on phone
         calculator.classList.add('compact-view');
     } else {
         calculator.classList.remove('compact-view');
     }
+    
+    // Show/hide floating button for scrollable content
+    toggleFloatingButton();
+}
+
+// Toggle floating reset button visibility based on scroll position
+function toggleFloatingButton() {
+    const floatingBtn = document.getElementById('floatingReset');
+    if (!floatingBtn) return;
+    
+    // Only show on mobile
+    if (window.innerWidth >= 768) {
+        floatingBtn.classList.remove('visible');
+        return;
+    }
+    
+    // Show button when user has scrolled down a bit
+    if (window.scrollY > 150) {
+        floatingBtn.classList.add('visible');
+    } else {
+        floatingBtn.classList.remove('visible');
+    }
+}
+
+// Adjust view when keyboard is shown on mobile
+function adjustForKeyboard() {
+    if (window.innerWidth >= 768) return;
+    
+    const calculator = document.querySelector('.calculator-box');
+    if (!calculator) return;
+    
+    // If viewport height gets very small (keyboard is likely visible)
+    if (window.innerHeight < 400) {
+        calculator.classList.add('keyboard-visible');
+        document.body.classList.add('keyboard-visible');
+    } else {
+        calculator.classList.remove('keyboard-visible');
+        document.body.classList.remove('keyboard-visible');
+    }
+}
+
+// Theme initialization based on user preference
+function initTheme() {
+    const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    
+    // Check local storage first
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+        if (savedTheme === 'dark') {
+            document.body.classList.add('dark-mode');
+        }
+    } else if (darkModeMediaQuery.matches) {
+        // If no saved preference, use system preference
+        document.body.classList.add('dark-mode');
+    }
+    
+    // Set up theme toggle
+    const themeToggle = document.getElementById('themeToggle');
+    if (themeToggle) {
+        themeToggle.addEventListener('click', toggleTheme);
+    }
+    
+    // Set up disco mode toggle
+    const discoToggle = document.getElementById('discoToggle');
+    if (discoToggle) {
+        discoToggle.addEventListener('click', toggleDiscoMode);
+    }
+}
+
+// Toggle dark/light theme
+function toggleTheme() {
+    document.body.classList.toggle('dark-mode');
+    
+    // Save preference
+    if (document.body.classList.contains('dark-mode')) {
+        localStorage.setItem('theme', 'dark');
+    } else {
+        localStorage.setItem('theme', 'light');
+    }
+}
+
+// Toggle disco mode
+function toggleDiscoMode() {
+    document.body.classList.toggle('disco-mode');
 }
 
 function updateDefaultValues() {
@@ -211,6 +330,11 @@ function resetForm() {
     
     // Focus on the first input field
     if (filamentType) filamentType.focus();
+    
+    // On mobile, scroll to top
+    if (window.innerWidth < 768) {
+        window.scrollTo({top: 0, behavior: 'smooth'});
+    }
 }
 
 function calculateCost() {
@@ -248,22 +372,6 @@ function calculateCost() {
         updateCostDisplay('laborCostResult', laborCostTotal);
         updateCostDisplay('totalCost', totalCost);
         
-        // Scroll to results if they're not visible
-        // Only on small screens and only if calculation was triggered by button
-        if (window.innerWidth < 768 && document.activeElement === document.querySelector('.calculate-btn')) {
-            const resultsElement = document.getElementById('results');
-            if (resultsElement) {
-                const rect = resultsElement.getBoundingClientRect();
-                
-                if (rect.bottom > window.innerHeight) {
-                    resultsElement.scrollIntoView({ 
-                        behavior: 'smooth', 
-                        block: 'nearest',
-                        inline: 'nearest'
-                    });
-                }
-            }
-        }
     } catch (error) {
         console.error("Error calculating cost:", error);
     }
@@ -273,34 +381,38 @@ function updateCostDisplay(elementId, value) {
     const element = document.getElementById(elementId);
     if (!element) return;
     
-    // Format with 2 decimal places and include dollar sign
-    const formattedValue = `$${formatNumber(value)}`;
+    const oldValue = parseFloat(element.textContent.replace('$', '')) || 0;
+    const formattedValue = formatNumber(value);
     
-    // Only animate if the value has changed
-    if (element.textContent !== formattedValue) {
-        // Add animation class
+    // Only animate if the value has changed significantly
+    if (Math.abs(oldValue - value) > 0.001) {
         element.classList.add('update-animation');
         element.textContent = formattedValue;
         
         // Remove animation class after animation completes
         setTimeout(() => {
-            if (element) element.classList.remove('update-animation');
+            element.classList.remove('update-animation');
         }, 400);
+    } else {
+        element.textContent = formattedValue;
     }
 }
 
-// Helper to format number with proper decimal places
 function formatNumber(value) {
-    // For values less than 0.1, show 3 decimal places
-    if (value < 0.1 && value > 0) {
-        return value.toFixed(3);
-    } 
-    // For values less than 100, show 2 decimal places
-    else if (value < 100) {
-        return value.toFixed(2);
-    } 
-    // For larger values, only show 1 decimal place
-    else {
-        return value.toFixed(1);
-    }
-} 
+    // Format as currency with 2 decimal places
+    return '$' + value.toFixed(2);
+}
+
+// Utility function for debouncing
+function debounce(func, wait) {
+    let timeout;
+    return function() {
+        const context = this;
+        const args = arguments;
+        clearTimeout(timeout);
+        timeout = setTimeout(() => func.apply(context, args), wait);
+    };
+}
+
+// Initialize the calculator when the DOM is ready
+document.addEventListener('DOMContentLoaded', initCalculator); 

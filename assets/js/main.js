@@ -14,11 +14,37 @@ window.addEventListener("load", function() {
   // Set up floating reset button for mobile
   initFloatingReset();
   
+  // Initialize mobile dropdown menu
+  initMobileMenu();
+  
   // Initialize the calculator when DOM is ready
   if (typeof initCalculator === 'function') {
     initCalculator();
   }
 });
+
+// Initialize dropdown menu for mobile
+function initMobileMenu() {
+  const menuToggle = document.querySelector('.menu-toggle');
+  const dropdownMenu = document.querySelector('.dropdown-menu');
+  
+  if (!menuToggle || !dropdownMenu) return;
+  
+  menuToggle.addEventListener('click', (e) => {
+    e.stopPropagation();
+    dropdownMenu.classList.toggle('show');
+    
+    // Add ripple effect to button
+    addRippleEffect(menuToggle);
+  });
+  
+  // Close the dropdown when clicking elsewhere
+  document.addEventListener('click', (e) => {
+    if (dropdownMenu.classList.contains('show') && !e.target.closest('.dropdown')) {
+      dropdownMenu.classList.remove('show');
+    }
+  });
+}
 
 // Initialize particles.js with optimized settings
 function initParticles(customColor) {
