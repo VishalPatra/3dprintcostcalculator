@@ -13,19 +13,15 @@
 /* Blog wrapper */
 .blog-wrapper {
   max-width: 800px;
-  margin: 0 auto 3rem;
-  padding-top: 80px;
-  padding-left: 2rem;
-  padding-right: 2rem;
-  padding-bottom: 2rem;
+  margin: 180px auto 3rem; /* High fixed margin to ensure visibility */
+  padding: 2rem;
   background: var(--blog-bg);
   border-radius: 15px;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   position: relative;
-  z-index: 2;
-  transform: translateY(70px);
+  z-index: 10;
 }
 
 .dark-mode .blog-wrapper {
@@ -41,13 +37,6 @@
   margin: 1.5rem 0 2rem;
   text-align: center;
   position: relative;
-  z-index: 5;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-  background: rgba(255, 255, 255, 0.2);
-  padding: 0.5rem 1rem;
-  border-radius: 0.5rem;
-  display: block;
-  width: 100%;
 }
 
 .dark-mode .blog-wrapper h1 {
@@ -450,38 +439,18 @@
 /* Responsive adjustments */
 @media (min-width: 576px) {
   .blog-wrapper {
-    padding-left: 3rem;
-    padding-right: 3rem;
-    transform: translateY(70px);
+    padding: 3rem;
   }
   
   .blog-wrapper h1 {
     font-size: 2.8rem;
     margin: 1rem 0 2rem;
   }
-  
-  .blog-post h1 {
-    font-size: 2.25rem;
-  }
-  
-  .blog-posts {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  
-  .blog-content {
-    padding: 2.5rem;
-    margin-top: 2.5rem;
-  }
 }
 
 @media (min-width: 768px) {
   .blog-wrapper {
-    padding-top: 80px;
-    transform: translateY(80px);
-  }
-  
-  .blog-content {
-    padding: 3rem;
+    margin-top: 180px; /* Keep consistent margin on medium screens */
   }
   
   .blog-wrapper h1 {
@@ -492,34 +461,11 @@
 @media (min-width: 992px) {
   .blog-wrapper {
     max-width: 1000px;
-    padding-top: 80px;
-    transform: translateY(90px);
+    margin-top: 180px; /* Keep consistent margin on large screens */
   }
   
   .blog-wrapper h1 {
     font-size: 3.2rem;
     margin: 1rem 0 2.5rem;
-  }
-  
-  .blog-post h1 {
-    font-size: 2.5rem;
-  }
-  
-  .blog-posts {
-    grid-template-columns: repeat(3, 1fr);
-  }
-  
-  .blog-content {
-    background: var(--blog-content-bg);
-    padding: 3.5rem;
-    margin: 3rem auto;
-    max-width: 80%;
-    border-radius: 16px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-  }
-  
-  .dark-mode .blog-content {
-    background: var(--blog-content-dark-bg);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
   }
 } 
