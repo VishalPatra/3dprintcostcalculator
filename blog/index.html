@@ -4,54 +4,206 @@ title: 3D Printing Blog
 description: Tips, tricks, and insights for 3D printing, including pricing, materials, and techniques
 ---
 
-<div class="blog-container">
-  <div class="blog-header">
-    <h1>3D Printing Blog</h1>
-    <p class="subtitle">Tips, tricks, and insights for 3D printing enthusiasts</p>
-  </div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog - 3D Print Cost Calculator</title>
+    <meta name="description" content="Latest articles, tutorials, and guides about 3D printing costs, materials, techniques, and business tips.">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="../assets/img/favicon.png">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="../assets/css/styles.css">
+    <link rel="stylesheet" href="../assets/css/blog.css">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        .blog-container {
+            max-width: 1000px;
+            margin: 80px auto 40px;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        body.dark-mode .blog-container {
+            background: rgba(33, 37, 41, 0.9);
+        }
+        
+        @media (max-width: 767px) {
+            .blog-container {
+                margin-top: 70px;
+                padding: 20px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .blog-container {
+                margin-top: 60px;
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <a href="../index.html"><img src="../assets/img/logo.png" alt="3D Print Cost Calculator"></a>
+            </div>
+            <div class="nav-container">
+                <nav class="main-nav">
+                    <ul>
+                        <li><a href="../index.html">Home</a></li>
+                        <li><a href="../calculator.html">Calculator</a></li>
+                        <li><a href="../blog/index.html" class="active">Blog</a></li>
+                        <li><a href="../about.html">About</a></li>
+                    </ul>
+                </nav>
+                <div class="theme-toggle">
+                    <i class="fas fa-sun"></i>
+                    <div class="toggle-track">
+                        <div class="toggle-thumb"></div>
+                    </div>
+                    <i class="fas fa-moon"></i>
+                </div>
+                <div class="mobile-menu-btn">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+    </header>
 
-  <div class="blog-posts">
-    {% for post in site.posts %}
-    <article class="blog-post-card">
-      <div class="post-card-content">
-        <h2><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h2>
-        <div class="post-meta">
-          <span class="post-date">{{ post.date | date: "%B %d, %Y" }}</span>
-          {% if post.author %}
-          <span class="post-author">by {{ post.author }}</span>
-          {% endif %}
-        </div>
-        {% if post.featured_image %}
-        <div class="post-thumbnail">
-          <a href="{{ post.url | relative_url }}">
-            <img src="{{ post.featured_image | relative_url }}" alt="{{ post.title }}">
-          </a>
-        </div>
-        {% endif %}
-        <div class="post-excerpt">
-          {{ post.excerpt | strip_html | truncatewords: 30 }}
-        </div>
-        <a href="{{ post.url | relative_url }}" class="read-more">Read More &raquo;</a>
-      </div>
-    </article>
-    {% endfor %}
-  </div>
+    <main>
+        <div class="blog-container">
+            <div class="blog-header">
+                <h1>3D Printing Blog</h1>
+                <p class="subtitle">Latest articles, tutorials, and guides about 3D printing</p>
+            </div>
+            
+            <div class="blog-posts">
+                <div class="post">
+                    <img src="../assets/img/blog/3d-printing-speed.jpg" alt="3D Printing Speed vs Quality" class="post-image">
+                    <div class="post-content">
+                        <h2 class="post-title">3D Printing Speed vs Quality: Finding the Perfect Balance</h2>
+                        <div class="post-meta">
+                            <span class="post-date"><i class="far fa-calendar-alt"></i> August 30, 2023</span>
+                            <span class="post-author"><i class="far fa-user"></i> Vishal Patra</span>
+                        </div>
+                        <p class="post-excerpt">Explore the relationship between print speed and quality, and learn practical strategies to optimize your settings for the best results.</p>
+                        <a href="./2023/08/30/3d-printing-speed-vs-quality.html" class="read-more">Read More</a>
+                    </div>
+                </div>
+                
+                <div class="post">
+                    <img src="../assets/img/blog/materials-comparison.jpg" alt="3D Printing Materials Comparison" class="post-image">
+                    <div class="post-content">
+                        <h2 class="post-title">3D Printing Materials Comparison: Which One Should You Choose?</h2>
+                        <div class="post-meta">
+                            <span class="post-date"><i class="far fa-calendar-alt"></i> August 15, 2023</span>
+                            <span class="post-author"><i class="far fa-user"></i> Vishal Patra</span>
+                        </div>
+                        <p class="post-excerpt">A comprehensive comparison of common 3D printing materials including PLA, ABS, PETG, TPU, and resin. Learn about their properties, advantages, and best uses.</p>
+                        <a href="./2023/08/15/3d-printing-materials-comparison.html" class="read-more">Read More</a>
+                    </div>
+                </div>
+                
+                <div class="post">
+                    <img src="../assets/img/blog/3d-printing-cost.jpg" alt="3D Printing Cost" class="post-image">
+                    <div class="post-content">
+                        <h2 class="post-title">How Much to Charge for 3D Printing Prototypes</h2>
+                        <div class="post-meta">
+                            <span class="post-date"><i class="far fa-calendar-alt"></i> August 1, 2023</span>
+                            <span class="post-author"><i class="far fa-user"></i> Vishal Patra</span>
+                        </div>
+                        <p class="post-excerpt">Learn how to accurately price your 3D printing services for maximum profit while remaining competitive in the market.</p>
+                        <a href="./2023/08/01/how-much-to-charge-for-3d-printing-prototypes.html" class="read-more">Read More</a>
+                    </div>
+                </div>
+            </div>
 
-  <!-- AdSense Placeholder -->
-  <div class="adsense-container blog-index-ad">
-    <div class="adsense-placeholder">
-      <!-- AdSense will be loaded here -->
-      <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8953007004561903" crossorigin="anonymous"></script>
-      <!-- 3DPrintCalcBlog-Responsive -->
-      <ins class="adsbygoogle"
-           style="display:block"
-           data-ad-client="ca-pub-8953007004561903"
-           data-ad-slot="3234567891"
-           data-ad-format="auto"
-           data-full-width-responsive="true"></ins>
-      <script>
-           (adsbygoogle = window.adsbygoogle || []).push({});
-      </script>
+            <!-- AdSense Placeholder -->
+            <div class="adsense-container blog-index-ad">
+                <div class="adsense-placeholder">
+                    <!-- AdSense will be loaded here -->
+                    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8953007004561903" crossorigin="anonymous"></script>
+                    <!-- 3DPrintCalcBlog-Responsive -->
+                    <ins class="adsbygoogle"
+                         style="display:block"
+                         data-ad-client="ca-pub-8953007004561903"
+                         data-ad-slot="3234567891"
+                         data-ad-format="auto"
+                         data-full-width-responsive="true"></ins>
+                    <script>
+                         (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-logo">
+                <img src="../assets/img/logo.png" alt="3D Print Cost Calculator">
+            </div>
+            <div class="footer-links">
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="../index.html">Home</a></li>
+                        <li><a href="../calculator.html">Calculator</a></li>
+                        <li><a href="../blog/index.html">Blog</a></li>
+                        <li><a href="../about.html">About</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Resources</h3>
+                    <ul>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-newsletter">
+                <h3>Stay Updated</h3>
+                <p>Subscribe to our newsletter for the latest 3D printing tips, tricks, and calculator updates.</p>
+                <form>
+                    <input type="email" placeholder="Your email address">
+                    <button type="submit">Subscribe</button>
+                </form>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2023 3D Print Cost Calculator. All rights reserved.</p>
+            <div class="social-links">
+                <a href="#"><i class="fab fa-facebook"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <div class="mobile-nav">
+        <ul>
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="../calculator.html">Calculator</a></li>
+            <li><a href="../blog/index.html" class="active">Blog</a></li>
+            <li><a href="../about.html">About</a></li>
+        </ul>
     </div>
-  </div>
-</div> 
+
+    <script src="../assets/js/main.js"></script>
+</body>
+</html> 
