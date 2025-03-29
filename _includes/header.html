@@ -1,25 +1,16 @@
 <nav class="navbar navbar-expand-lg navbar-dark">
   <div class="container">
     <div class="d-flex align-items-center">
-      <img src="{{ "/assets/img/3d-printer-icon.svg" | prepend: site.baseurl }}" alt="3D Printer" class="navbar-icon">
+      <img src="{{ "/assets/img/3d-printer-icon.svg" | prepend: site.baseurl }}" alt="3D Printer" class="navbar-icon" width="24" height="24">
       <a class="navbar-brand" href="{{ site.baseurl }}/">3D Print Calculator</a>
     </div>
     
     <div class="navbar-controls">
-      <!-- Blog link visible on desktop, hidden on mobile -->
-      <a href="{{ site.baseurl }}/blog/" class="nav-link d-none d-md-block">Blog</a>
-      
-      <!-- Blog dropdown icon visible only on mobile -->
-      <div class="dropdown d-md-none">
-        <button class="menu-toggle" type="button" aria-expanded="false" aria-label="Toggle menu" id="navDropdownToggle">
-          <i class="fas fa-bars"></i>
-        </button>
-        <div class="dropdown-menu dropdown-menu-end" id="navDropdownMenu">
-          <a href="{{ site.baseurl }}/blog/" class="dropdown-item">
-            <i class="fas fa-blog me-2"></i>Blog
-          </a>
-        </div>
-      </div>
+      <!-- Blog link as a direct button instead of dropdown -->
+      <a href="{{ site.baseurl }}/blog/" class="nav-link blog-btn">
+        <i class="fas fa-blog d-md-none"></i>
+        <span class="d-none d-md-inline">Blog</span>
+      </a>
       
       <button id="discoToggle" class="disco-toggle" aria-label="Toggle disco mode">
         <i class="fas fa-music"></i>

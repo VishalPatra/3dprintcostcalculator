@@ -146,8 +146,8 @@ body.disco-mode {
 }
 
 .navbar-icon {
-    height: 18px;
-    width: auto;
+    height: 24px;
+    width: 24px;
     margin-right: 0.3rem;
     vertical-align: middle;
 }
@@ -341,6 +341,7 @@ body.disco-mode {
     width: 100%;
     margin: 0 auto;
     max-width: 100%;
+    height: auto !important;
 }
 
 .calculator-box {
@@ -357,6 +358,7 @@ body.disco-mode {
     z-index: 10;
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
+    min-height: 200px;
 }
 
 .dark-mode .calculator-box {
@@ -1257,5 +1259,56 @@ body.disco-mode {
     
     .compact-view .input-group {
         margin-bottom: 0.4rem;
+    }
+}
+
+/* Blog button styling */
+.blog-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255, 255, 255, 0.9);
+    text-decoration: none;
+    padding: 0.5rem 0.8rem;
+    margin-right: 0.4rem;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.blog-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    color: #fff;
+    transform: translateY(-1px);
+}
+
+.blog-btn:active {
+    transform: translateY(1px);
+}
+
+/* Fix for CLS - set explicit height to prevent layout shift */
+.calculator-wrapper {
+    min-height: 100vh;
+    height: auto !important;
+}
+
+/* Ensure the container doesn't shift during loading */
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+/* Ensure font loading doesn't cause layout shift */
+@font-face {
+    font-family: 'Montserrat';
+    font-display: swap;
+    src: url('https://fonts.googleapis.com/css?family=Montserrat');
+}
+
+@media (min-width: 768px) {
+    .calculator-box {
+        max-width: 800px;
     }
 } 
