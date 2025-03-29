@@ -1,43 +1,61 @@
 <nav class="navbar navbar-expand-lg navbar-dark">
   <div class="container">
     <div class="d-flex align-items-center">
-      <img src="{{ "/assets/img/3d-printer-icon.svg" | prepend: site.baseurl }}" alt="3D Printer" class="navbar-icon" width="24" height="24">
+      <a href="{{ site.baseurl }}/" class="logo">
+        <img src="{{ "/assets/img/3d-printer-icon.svg" | prepend: site.baseurl }}" alt="3D Printer" class="navbar-icon" width="32" height="32">
+      </a>
       <a class="navbar-brand" href="{{ site.baseurl }}/">3D Print Calculator</a>
     </div>
     
+    <!-- Mobile menu toggle -->
+    <button class="mobile-menu-btn d-lg-none" aria-label="Toggle navigation">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+    
+    <!-- Navigation links -->
+    <div class="collapse navbar-collapse" id="navbarMain">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="{{ site.baseurl }}/">Calculator</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ site.baseurl }}/blog/">Blog</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ site.baseurl }}/about/">About</a>
+        </li>
+      </ul>
+    </div>
+    
+    <!-- Theme and special controls -->
     <div class="navbar-controls">
-      <!-- Blog link as a direct button instead of dropdown -->
-      <a href="{{ site.baseurl }}/blog/" class="nav-link blog-btn">
+      <!-- Blog link as a direct button visible only on mobile -->
+      <a href="{{ site.baseurl }}/blog/" class="nav-link blog-btn d-lg-none">
         <i class="fas fa-blog d-md-none"></i>
-        <span class="d-none d-md-inline">Blog</span>
+        <span class="d-none d-md-inline d-lg-none">Blog</span>
       </a>
       
-      <button id="discoToggle" class="disco-toggle" aria-label="Toggle disco mode">
-        <i class="fas fa-music"></i>
-      </button>
-      <button id="themeToggle" class="theme-toggle" aria-label="Toggle dark mode">
-        <i class="fas fa-sun"></i>
-        <i class="fas fa-moon"></i>
+      <button class="theme-toggle" aria-label="Toggle dark mode">
+        <span class="toggle-track">
+          <span class="toggle-thumb"></span>
+        </span>
       </button>
     </div>
   </div>
 </nav>
 
+<!-- Mobile navigation -->
+<div class="mobile-nav">
+  <ul>
+    <li><a href="{{ site.baseurl }}/">Calculator</a></li>
+    <li><a href="{{ site.baseurl }}/blog/">Blog</a></li>
+    <li><a href="{{ site.baseurl }}/about/">About</a></li>
+  </ul>
+</div>
+
 <!-- Floating reset button for mobile -->
 <button id="floatingReset" class="floating-reset-btn d-md-none">
   <i class="fas fa-sync-alt"></i>
 </button>
-
-<script>
-  // Handle mobile dropdown menu
-  document.getElementById('navDropdownToggle').addEventListener('click', function() {
-    document.getElementById('navDropdownMenu').classList.toggle('show');
-  });
-  
-  // Close dropdown when clicking outside
-  document.addEventListener('click', function(event) {
-    if (!event.target.closest('.dropdown')) {
-      document.getElementById('navDropdownMenu').classList.remove('show');
-    }
-  });
-</script>
