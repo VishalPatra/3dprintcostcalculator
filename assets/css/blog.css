@@ -14,7 +14,7 @@
 .blog-wrapper {
   max-width: 800px;
   margin: 0 auto 3rem;
-  padding-top: 120px;
+  padding-top: 80px;
   padding-left: 2rem;
   padding-right: 2rem;
   padding-bottom: 2rem;
@@ -24,7 +24,8 @@
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   position: relative;
-  z-index: 1;
+  z-index: 2;
+  transform: translateY(70px);
 }
 
 .dark-mode .blog-wrapper {
@@ -451,6 +452,7 @@
   .blog-wrapper {
     padding-left: 3rem;
     padding-right: 3rem;
+    transform: translateY(70px);
   }
   
   .blog-wrapper h1 {
@@ -474,7 +476,8 @@
 
 @media (min-width: 768px) {
   .blog-wrapper {
-    padding-top: 140px;
+    padding-top: 80px;
+    transform: translateY(80px);
   }
   
   .blog-content {
@@ -489,7 +492,8 @@
 @media (min-width: 992px) {
   .blog-wrapper {
     max-width: 1000px;
-    padding-top: 150px;
+    padding-top: 80px;
+    transform: translateY(90px);
   }
   
   .blog-wrapper h1 {
