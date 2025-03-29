@@ -3,8 +3,9 @@
     <div class="w-40">
       <img src="{{ "/assets/img/3d-printer-icon.svg" | prepend: site.baseurl }}" alt="3D Printer" class="navbar-icon">
     </div>
-    <a class="navbar-brand" href="#">3D Print Calculator</a>
+    <a class="navbar-brand" href="{{ site.baseurl }}/">3D Print Calculator</a>
     <div class="d-flex">
+      <a href="{{ site.baseurl }}/blog/" class="nav-link text-light me-3 d-none d-md-block">Blog</a>
       <button id="discoToggle" class="disco-toggle" aria-label="Toggle disco mode">
         <i class="fas fa-music"></i>
       </button>
@@ -19,3 +20,9 @@
 <button id="floatingReset" class="floating-reset-btn d-none d-md-none">
   <i class="fas fa-sync-alt"></i>
 </button>
+
+<!-- Mobile menu for small screens -->
+<div class="mobile-menu d-block d-md-none">
+  <a href="{{ site.baseurl }}/" class="mobile-menu-item"><i class="fas fa-calculator"></i> Calculator</a>
+  <a href="{{ site.baseurl }}/blog/" class="mobile-menu-item"><i class="fas fa-blog"></i> Blog</a>
+</div>

@@ -235,7 +235,7 @@ body.disco-mode {
 }
 
 .calculator-box {
-    background: var(--light-bg);
+    background: rgba(255, 255, 255, 0.7);
     padding: 1.5rem;
     border-radius: 15px;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
@@ -251,7 +251,7 @@ body.disco-mode {
 }
 
 .dark-mode .calculator-box {
-    background: var(--dark-bg);
+    background: rgba(33, 37, 41, 0.7);
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
 }
 
@@ -651,7 +651,45 @@ body.disco-mode {
     color: var(--dark-link-hover);
 }
 
-/* Responsive styles */
+/* AdSense container */
+.ad-container {
+    background: rgba(248, 249, 250, 0.7);
+    border-radius: 8px;
+    padding: 1rem;
+    max-width: 800px;
+    margin: 1.5rem auto;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+}
+
+.dark-mode .ad-container {
+    background: rgba(52, 58, 64, 0.7);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.ad-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #adb5bd;
+    margin-bottom: 0.5rem;
+    text-align: center;
+}
+
+.ad-placeholder {
+    min-height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(248, 249, 250, 0.5);
+    border-radius: 4px;
+}
+
+.dark-mode .ad-placeholder {
+    background: rgba(33, 37, 41, 0.5);
+}
+
 @media (min-width: 576px) {
     .navbar-brand {
         font-size: 1.5rem;
@@ -700,6 +738,10 @@ body.disco-mode {
     
     .input-group label {
         font-size: 1rem;
+    }
+    
+    .ad-placeholder {
+        min-height: 150px;
     }
 }
 
@@ -774,6 +816,10 @@ body.disco-mode {
     
     .total-cost {
         font-size: 1.3rem;
+    }
+    
+    .ad-placeholder {
+        min-height: 200px;
     }
 }
 
