@@ -18,14 +18,12 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(248, 249, 250, 0.3);
+  background: rgba(248, 249, 250, 0.2);
   z-index: -1;
-  backdrop-filter: blur(3px);
-  -webkit-backdrop-filter: blur(3px);
 }
 
 .dark-mode .blog-wrapper-bg {
-  background: rgba(33, 37, 41, 0.3);
+  background: rgba(33, 37, 41, 0.2);
 }
 
 .blog-wrapper {
