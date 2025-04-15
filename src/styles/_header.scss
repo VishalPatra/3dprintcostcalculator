@@ -120,3 +120,21 @@
       }
   }
 }
+
+.navbar {
+  // ... existing code ...
+}
+
+.nav-blog-btn {
+  font-size: 0.9rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    background-color: white;
+    color: #1c7ed6;
+    transform: translateY(-2px);
+  }
+}

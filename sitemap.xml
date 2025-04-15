@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://3dprintcostcalculator.com/</loc>
+    <lastmod>2023-08-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://3dprintcostcalculator.com/blog/</loc>
+    <lastmod>2023-08-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://3dprintcostcalculator.com/blog/2023/08/01/how-much-to-charge-for-3d-printing-prototypes.html</loc>
+    <lastmod>2023-08-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://3dprintcostcalculator.com/blog/how-to-calculate-3d-printing-costs.html</loc>
+    <lastmod>2023-07-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://3dprintcostcalculator.com/blog/optimize-3d-printing-efficiency.html</loc>
+    <lastmod>2023-06-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+</urlset> 
