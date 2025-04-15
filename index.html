@@ -1,7 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    {% include head.html %}
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#24292e">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+
+    <!-- Preconnect to origins -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
+    <link rel="preconnect" href="https://pagead2.googlesyndication.com" crossorigin>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="https://vishalpatra.github.io/3dprintcostcalculator/assets/img/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://vishalpatra.github.io/3dprintcostcalculator/assets/img/favicon-16x16.png">
+
     <title>3D Print Cost Calculator - Free Tool for 3D Printing Costs Estimation</title>
     <meta name="description" content="Free online calculator to estimate your 3D printing costs including materials, electricity, printer depreciation, and profit margin. Perfect for businesses and hobbyists.">
     <meta name="keywords" content="3D printing, cost calculator, 3D print estimator, filament cost, print cost, 3D printing business">
@@ -22,6 +40,36 @@
     
     <!-- Canonical URL -->
     <link rel="canonical" href="https://vishalpatra.github.io/3dprintcostcalculator/">
+    
+    <!-- Google Analytics -->
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-TCYVDCEP0W"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-TCYVDCEP0W');
+    </script>
+
+    <!-- Google Search Console Verification -->
+    <meta name="google-site-verification" content="2LE913v6JeHRkloa09O9n9w0NfmNjiz0w8MSSCF1LjQ" />
+    <meta name="google-adsense-account" content="ca-pub-8953007004561903">
+    
+    <!-- Font display strategy for webfonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    
+    <!-- Font Awesome icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/fontawesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/solid.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/brands.min.css">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="https://vishalpatra.github.io/3dprintcostcalculator/assets/css/main.css">
+    <link rel="stylesheet" href="https://vishalpatra.github.io/3dprintcostcalculator/assets/css/calculator.css">
+    <link rel="stylesheet" href="https://vishalpatra.github.io/3dprintcostcalculator/assets/css/blog.css">
     
     <!-- Preload critical assets -->
     <link rel="preload" href="https://vishalpatra.github.io/3dprintcostcalculator/assets/css/calculator.css" as="style">
@@ -54,7 +102,36 @@
     <div id="particles-js"></div>
 
     <!-- Navigation Bar -->
-    {% include header.html %}
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+      <div class="container d-flex justify-content-between align-items-center">
+        <div class="w-40">
+          <img src="https://vishalpatra.github.io/3dprintcostcalculator/assets/img/3d-printer-icon.svg" alt="3D Printer" class="navbar-icon">
+        </div>
+        <a class="navbar-brand" href="https://vishalpatra.github.io/3dprintcostcalculator/">3D Print Calculator</a>
+        <div class="d-flex">
+          <a href="https://vishalpatra.github.io/3dprintcostcalculator/blog/" class="blog-toggle" aria-label="Blog">
+            <i class="fas fa-blog"></i>
+          </a>
+          <button id="discoToggle" class="disco-toggle" aria-label="Toggle disco mode">
+            <i class="fas fa-music"></i>
+          </button>
+          <button id="themeToggle" class="theme-toggle ms-2" aria-label="Toggle dark mode">
+            <i class="fas fa-sun"></i>
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Floating reset button for mobile -->
+    <button id="floatingReset" class="floating-reset-btn d-none d-md-none">
+      <i class="fas fa-sync-alt"></i>
+    </button>
+
+    <!-- Mobile menu for small screens -->
+    <div class="mobile-menu d-block d-md-none">
+      <a href="https://vishalpatra.github.io/3dprintcostcalculator/" class="mobile-menu-item"><i class="fas fa-calculator"></i> Calculator</a>
+      <a href="https://vishalpatra.github.io/3dprintcostcalculator/blog/" class="mobile-menu-item"><i class="fas fa-blog"></i> Blog</a>
+    </div>
 
     <!-- Main Calculator Section -->
     <main class="calculator-wrapper">
@@ -208,8 +285,8 @@
                 <!-- AdSense code will go here -->
                 <ins class="adsbygoogle"
                     style="display:block"
-                    data-ad-client="{{site.google-adsense.publisher-id}}"
-                    data-ad-slot="{{site.ad_slot}}"
+                    data-ad-client="ca-pub-8953007004561903"
+                    data-ad-slot="3335629097"
                     data-ad-format="auto"
                     data-full-width-responsive="true"></ins>
                 <script>
@@ -225,11 +302,24 @@
     </button>
     
     <!-- Footer -->
-    {% include footer.html %}
+    <footer class="footer">
+      <div class="footer-content">
+        <p>Made with <span aria-label="love">❤️</span> in <span aria-label="India">🇮🇳</span> by <a href="https://github.com/vishalpatra">Vishal Patra</a></p>
+        <div class="social-links">
+          <a href="https://github.com/vishalpatra" aria-label="GitHub" target="_blank" rel="noopener"><i class="fab fa-github"></i></a>
+          <a href="https://www.linkedin.com/in/vishalpatra" aria-label="LinkedIn" target="_blank" rel="noopener"><i class="fab fa-linkedin-in"></i></a>
+          <a href="https://www.instagram.com/thirddimensionalprints" aria-label="Instagram" target="_blank" rel="noopener"><i class="fab fa-instagram"></i></a>
+        </div>
+        <!-- AdSense Verification -->
+        <div style="display:none">google.com, pub-8953007004561903, DIRECT, f08c47fec0942fa0</div>
+      </div>
+    </footer>
+
+    <!-- Particles.js -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     
     <!-- Scripts -->
-    <script src="https://vishalpatra.github.io/3dprintcostcalculator/assets/js/particles.min.js" defer></script>
-    <script src="https://vishalpatra.github.io/3dprintcostcalculator/assets/js/calculator.js" defer></script>
+    <script src="https://vishalpatra.github.io/3dprintcostcalculator/assets/js/calculator.js"></script>
     
     <!-- AdSense -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
@@ -237,7 +327,7 @@
         // Load AdSense after page is fully loaded
         window.addEventListener('load', function() {
             (adsbygoogle = window.adsbygoogle || []).push({
-                google_ad_client: "ca-pub-{{site.google-adsense.publisher-id}}",
+                google_ad_client: "ca-pub-8953007004561903",
                 enable_page_level_ads: true
             });
         });
