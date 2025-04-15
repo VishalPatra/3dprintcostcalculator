@@ -51,6 +51,30 @@
   border-color: #495057;
 }
 
+/* Fix for any white boxes/backgrounds */
+.blog-post-content div {
+  background-color: inherit;
+}
+
+.dark-mode .blog-post-content div {
+  background-color: inherit;
+}
+
+/* Special fix for case study examples */
+.prototype-example {
+  background-color: #f8f9fa;
+  padding: 15px;
+  border-radius: 5px;
+  margin: 20px 0;
+  border: 1px solid #e9ecef;
+}
+
+.dark-mode .prototype-example {
+  background-color: #343a40;
+  color: #f8f9fa;
+  border-color: #495057;
+}
+
 .breadcrumbs {
   margin-bottom: 1.5rem;
   padding-bottom: 1rem;
