@@ -541,6 +541,7 @@ body.disco-mode {
 .cost-item {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     padding: 0.7rem 1rem;
     background: rgba(255, 255, 255, 0.9);
     border-radius: 8px;
@@ -566,6 +567,8 @@ body.disco-mode {
     color: var(--light-text-secondary);
     font-weight: 500;
     font-size: 0.9rem;
+    margin-bottom: 0;
+    white-space: nowrap;
 }
 
 .dark-mode .cost-item label {
@@ -575,6 +578,8 @@ body.disco-mode {
 .cost-item span {
     color: var(--primary-color);
     font-weight: 600;
+    text-align: right;
+    min-width: 70px;
 }
 
 .dark-mode .cost-item span {
@@ -786,7 +791,7 @@ body.disco-mode {
     }
     
     .cost-grid {
-        grid-template-columns: repeat(4, 1fr);
+        grid-template-columns: repeat(2, 1fr);
         gap: 1.5rem;
     }
 }
