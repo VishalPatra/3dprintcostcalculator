@@ -1,306 +1,543 @@
-// Default values for different filament types
-const filamentDefaults = {
-    pla: { cost: 20, wattage: 150 },
-    abs: { cost: 25, wattage: 180 },
-    petg: { cost: 28, wattage: 165 },
-    tpu: { cost: 35, wattage: 160 },
-    custom: { cost: 20, wattage: 150 }
+// Initialize global state variables
+let calculatorState = {
+    materialCost: 0,
+    printTime: 0,
+    totalCost: 0,
+    additionalCosts: {}
+};
+
+// DOM elements cache
+const DOM = {
+    materialType: document.getElementById('material-type'),
+    filamentWeight: document.getElementById('filament-weight'),
+    materialCost: document.getElementById('material-cost'),
+    printHours: document.getElementById('print-hours'),
+    printMinutes: document.getElementById('print-minutes'),
+    electricityCost: document.getElementById('electricity-cost'),
+    printerCost: document.getElementById('printer-cost'),
+    maintenanceCost: document.getElementById('maintenance-cost'),
+    failureRate: document.getElementById('failure-rate'),
+    profitMargin: document.getElementById('profit-margin'),
+    calculateBtn: document.getElementById('calculate-btn'),
+    resetBtn: document.getElementById('reset-btn'),
+    resultsSection: document.getElementById('results'),
+    materialCostResult: document.getElementById('material-cost-result'),
+    electricityCostResult: document.getElementById('electricity-cost-result'),
+    wearTearResult: document.getElementById('wear-tear-result'),
+    failureCostResult: document.getElementById('failure-cost-result'),
+    baseCostResult: document.getElementById('base-cost-result'),
+    profitResult: document.getElementById('profit-result'),
+    totalCostResult: document.getElementById('total-cost-result'),
+    floatingResetBtn: document.getElementById('floating-reset-btn'),
+    themeToggle: document.getElementById('theme-toggle'),
+    discoToggle: document.getElementById('disco-toggle')
+};
+
+// Material density data (g/cm³)
+const MATERIAL_DENSITY = {
+    "pla": 1.24,
+    "abs": 1.04,
+    "petg": 1.27,
+    "tpu": 1.21,
+    "nylon": 1.13,
+    "pva": 1.23,
+    "asa": 1.05,
+    "pc": 1.3,
+    "hips": 1.04,
+    "carbon-fiber": 1.3,
+    "wood-fill": 1.28,
+    "metal-fill": 1.8,
+    "resin-standard": 1.1,
+    "resin-tough": 1.12,
+    "resin-dental": 1.15,
+    "resin-casting": 1.1
+};
+
+// Default values
+const DEFAULT_VALUES = {
+    materialType: "pla",
+    filamentWeight: 100,
+    materialCost: 25,
+    printHours: 5,
+    printMinutes: 30,
+    electricityCost: 0.15,
+    printerCost: 400,
+    maintenanceCost: 50,
+    failureRate: 5,
+    profitMargin: 30
 };
 
 // Initialize the calculator
-function initCalculator() {
-    // Set up event listeners for all input fields to auto-calculate on change
-    const allInputs = document.querySelectorAll('input, select');
-    allInputs.forEach(input => {
-        // Auto-calculate on input change
-        input.addEventListener('input', calculateCost);
-        
-        // For mobile: blur the input after entering a value
-        input.addEventListener('change', function() {
-            if (window.innerWidth < 768) {
-                setTimeout(() => this.blur(), 100);
-            }
-        });
-        
-        // Add keyboard event handling for Enter key
-        input.addEventListener('keydown', function(e) {
-            if (e.key === 'Enter') {
-                calculateCost();
-                e.preventDefault();
-                
-                // Find the next input to focus
-                const form = Array.from(allInputs);
-                const currentIndex = form.indexOf(e.target);
-                const nextElement = form[currentIndex + 1];
-                
-                if (nextElement) {
-                    nextElement.focus();
-                } else {
-                    // If last element, focus on the calculate button
-                    document.querySelector('.calculate-btn').focus();
-                }
-            }
-        });
-    });
+document.addEventListener('DOMContentLoaded', () => {
+    // Initialize the app
+    initializeCalculator();
+    initializeParticles();
+    addEventListeners();
     
-    // Fix for iOS numeric keyboard
-    const numericInputs = document.querySelectorAll('input[type="number"]');
-    numericInputs.forEach(input => {
-        input.addEventListener('focus', function() {
-            // Add slight delay to ensure keyboard is shown
-            setTimeout(() => {
-                input.setAttribute('inputmode', 'decimal');
-            }, 100);
-        });
-    });
-    
-    // Set up the filament type selector
-    const filamentTypeSelect = document.getElementById('filamentType');
-    if (filamentTypeSelect) {
-        filamentTypeSelect.addEventListener('change', updateDefaultValues);
+    // Set initial theme based on user preference
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark-mode');
+        updateThemeIcon();
     }
     
-    // Add click event for "Calculate" button
-    const calculateBtn = document.querySelector('.calculate-btn');
-    if (calculateBtn) {
-        calculateBtn.addEventListener('click', function(event) {
-            calculateCost();
-            
-            // Add haptic feedback for mobile devices if available
-            if (navigator.vibrate && window.innerWidth < 768) {
-                navigator.vibrate(15);
-            }
-            
-            // Add a visual feedback animation to the button
-            this.classList.add('clicked');
-            setTimeout(() => this.classList.remove('clicked'), 200);
-            
-            // Show a ripple effect on the button
-            createRipple(this, event);
-        });
-    }
+    // Check URL for calculator or blog mode
+    const pathName = window.location.pathname;
+    const isCalculatorPage = !pathName.includes('/blog/');
     
-    // Add click event for "Reset" button
-    const resetBtn = document.querySelector('.reset-btn');
-    if (resetBtn) {
-        resetBtn.addEventListener('click', function(event) {
-            resetForm();
-            
-            // Add haptic feedback for mobile devices if available
-            if (navigator.vibrate && window.innerWidth < 768) {
-                navigator.vibrate(15);
-            }
-            
-            // Add a visual feedback animation to the button
-            this.classList.add('clicked');
-            setTimeout(() => this.classList.remove('clicked'), 200);
-            
-            // Show a ripple effect on the button
-            createRipple(this, event);
-        });
-    }
+    // Apply compact view for landscape mode on mobile
+    applyCompactViewIfNeeded();
+    window.addEventListener('resize', debounce(applyCompactViewIfNeeded, 250));
     
-    // Handle orientation changes
-    window.addEventListener('orientationchange', () => {
-        setTimeout(updateLayout, 300);
-    });
+    // Check if page has scrolled and show/hide floating reset button
+    window.addEventListener('scroll', debounce(() => {
+        const scrollPosition = window.scrollY;
+        if (scrollPosition > 200) {
+            DOM.floatingResetBtn.classList.add('visible');
+        } else {
+            DOM.floatingResetBtn.classList.remove('visible');
+        }
+    }, 100));
     
-    // Initialize calculator with default values
-    updateDefaultValues();
-    calculateCost();
-    updateLayout();
+    // Lazy load images
+    lazyLoadImages();
+    
+    // Ensure all links use HTTPS
+    ensureHttpsLinks();
+});
+
+// Initialize calculator with default values
+function initializeCalculator() {
+    // Populate form with default values
+    populateFormWithDefaults();
+    
+    // Initialize results section (hidden by default)
+    hideResults();
 }
 
-// Create a ripple effect for buttons
-function createRipple(button, e) {
-    const rect = button.getBoundingClientRect();
-    const circle = document.createElement('span');
+// Initialize particle background
+function initializeParticles() {
+    if (!document.getElementById('particles-js')) return;
     
-    const diameter = Math.max(rect.width, rect.height);
-    const radius = diameter / 2;
+    particlesJS('particles-js', {
+        particles: {
+            number: { value: 80, density: { enable: true, value_area: 800 } },
+            color: { value: "#1971c2" },
+            shape: { type: "circle" },
+            opacity: { value: 0.5, random: true },
+            size: { value: 3, random: true },
+            line_linked: {
+                enable: true,
+                distance: 150,
+                color: "#1971c2",
+                opacity: 0.4,
+                width: 1
+            },
+            move: {
+                enable: true,
+                speed: 2,
+                direction: "none",
+                random: true,
+                straight: false,
+                out_mode: "out",
+                bounce: false
+            }
+        },
+        interactivity: {
+            detect_on: "canvas",
+            events: {
+                onhover: { enable: true, mode: "grab" },
+                onclick: { enable: true, mode: "push" },
+                resize: true
+            },
+            modes: {
+                grab: { distance: 140, line_linked: { opacity: 1 } },
+                push: { particles_nb: 4 }
+            }
+        },
+        retina_detect: true
+    });
+}
+
+// Add event listeners 
+function addEventListeners() {
+    // Calculate button
+    DOM.calculateBtn.addEventListener('click', (e) => {
+        addRippleEffect(e);
+        calculateCosts();
+    });
     
-    // Position relative to button
-    let x = e ? e.clientX - rect.left - radius : rect.width / 2;
-    let y = e ? e.clientY - rect.top - radius : rect.height / 2;
+    // Reset button
+    DOM.resetBtn.addEventListener('click', (e) => {
+        addRippleEffect(e);
+        resetCalculator();
+    });
     
-    // Create the ripple effect
-    circle.style.width = circle.style.height = `${diameter}px`;
-    circle.style.left = `${x}px`;
-    circle.style.top = `${y}px`;
-    circle.classList.add('ripple');
+    // Floating reset button
+    DOM.floatingResetBtn?.addEventListener('click', (e) => {
+        resetCalculator();
+        // Scroll to top
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
     
-    // Remove existing ripples
-    const ripple = button.querySelector('.ripple');
-    if (ripple) {
-        ripple.remove();
-    }
+    // Theme toggle
+    DOM.themeToggle?.addEventListener('click', toggleTheme);
     
-    button.appendChild(circle);
+    // Disco mode toggle
+    DOM.discoToggle?.addEventListener('click', toggleDiscoMode);
     
-    // Remove the ripple after animation
-    setTimeout(() => {
-        if (circle) {
-            circle.remove();
+    // Input event listeners for real-time calculations
+    const inputElements = [
+        DOM.materialType, DOM.filamentWeight, DOM.materialCost,
+        DOM.printHours, DOM.printMinutes, DOM.electricityCost,
+        DOM.printerCost, DOM.maintenanceCost, DOM.failureRate,
+        DOM.profitMargin
+    ];
+    
+    inputElements.forEach(element => {
+        if (element) {
+            element.addEventListener('input', debounce(calculateCosts, 500));
         }
+    });
+}
+
+// Calculate all costs
+function calculateCosts() {
+    // Get values from form
+    const formValues = getFormValues();
+    
+    // Calculate material cost
+    const materialCost = calculateMaterialCost(
+        formValues.materialType,
+        formValues.filamentWeight,
+        formValues.materialCost
+    );
+    
+    // Calculate print time in hours
+    const printTimeInHours = formValues.printHours + (formValues.printMinutes / 60);
+    
+    // Calculate electricity cost
+    const electricityCost = calculateElectricityCost(
+        printTimeInHours,
+        formValues.electricityCost
+    );
+    
+    // Calculate wear and tear
+    const wearAndTear = calculateWearAndTear(
+        printTimeInHours,
+        formValues.printerCost,
+        formValues.maintenanceCost
+    );
+    
+    // Calculate failure cost
+    const failureCost = calculateFailureCost(
+        materialCost + electricityCost + wearAndTear,
+        formValues.failureRate
+    );
+    
+    // Calculate base cost
+    const baseCost = materialCost + electricityCost + wearAndTear + failureCost;
+    
+    // Calculate profit
+    const profit = calculateProfit(baseCost, formValues.profitMargin);
+    
+    // Calculate total cost
+    const totalCost = baseCost + profit;
+    
+    // Update state
+    calculatorState = {
+        materialCost,
+        printTime: printTimeInHours,
+        totalCost,
+        additionalCosts: {
+            electricityCost,
+            wearAndTear,
+            failureCost,
+            baseCost,
+            profit
+        }
+    };
+    
+    // Display results
+    displayResults();
+}
+
+// Get current form values
+function getFormValues() {
+    return {
+        materialType: DOM.materialType.value,
+        filamentWeight: parseFloat(DOM.filamentWeight.value) || 0,
+        materialCost: parseFloat(DOM.materialCost.value) || 0,
+        printHours: parseInt(DOM.printHours.value) || 0,
+        printMinutes: parseInt(DOM.printMinutes.value) || 0,
+        electricityCost: parseFloat(DOM.electricityCost.value) || 0,
+        printerCost: parseFloat(DOM.printerCost.value) || 0,
+        maintenanceCost: parseFloat(DOM.maintenanceCost.value) || 0,
+        failureRate: parseFloat(DOM.failureRate.value) || 0,
+        profitMargin: parseFloat(DOM.profitMargin.value) || 0
+    };
+}
+
+// Calculate material cost
+function calculateMaterialCost(materialType, weight, cost) {
+    return (weight / 1000) * cost;
+}
+
+// Calculate electricity cost
+function calculateElectricityCost(printTime, electricityCostPerKWh) {
+    // Assume average 3D printer consumes 70W (0.07kW)
+    const powerConsumption = 0.07; // kW
+    return printTime * powerConsumption * electricityCostPerKWh;
+}
+
+// Calculate wear and tear cost
+function calculateWearAndTear(printTime, printerCost, yearlyMaintenance) {
+    // Assume 3 year printer lifespan with 2000 print hours per year
+    const printerLifespanHours = 3 * 2000;
+    const depreciationPerHour = printerCost / printerLifespanHours;
+    const maintenancePerHour = yearlyMaintenance / 2000;
+    
+    return printTime * (depreciationPerHour + maintenancePerHour);
+}
+
+// Calculate failure cost based on failure rate
+function calculateFailureCost(baseCost, failureRate) {
+    return baseCost * (failureRate / 100);
+}
+
+// Calculate profit based on margin
+function calculateProfit(baseCost, profitMargin) {
+    return baseCost * (profitMargin / 100);
+}
+
+// Display results in the UI
+function displayResults() {
+    // Show results section if hidden
+    DOM.resultsSection.style.display = 'block';
+    
+    // Apply update animation
+    DOM.resultsSection.classList.add('update-animation');
+    setTimeout(() => DOM.resultsSection.classList.remove('update-animation'), 500);
+    
+    // Update result values
+    DOM.materialCostResult.textContent = formatCurrency(calculatorState.materialCost);
+    DOM.electricityCostResult.textContent = formatCurrency(calculatorState.additionalCosts.electricityCost);
+    DOM.wearTearResult.textContent = formatCurrency(calculatorState.additionalCosts.wearAndTear);
+    DOM.failureCostResult.textContent = formatCurrency(calculatorState.additionalCosts.failureCost);
+    DOM.baseCostResult.textContent = formatCurrency(calculatorState.additionalCosts.baseCost);
+    DOM.profitResult.textContent = formatCurrency(calculatorState.additionalCosts.profit);
+    DOM.totalCostResult.textContent = formatCurrency(calculatorState.totalCost);
+}
+
+// Hide results section
+function hideResults() {
+    if (DOM.resultsSection) {
+        DOM.resultsSection.style.display = 'none';
+    }
+}
+
+// Reset calculator to default values
+function resetCalculator() {
+    // Reset form values
+    populateFormWithDefaults();
+    
+    // Hide results
+    hideResults();
+    
+    // Add clicked animation to button
+    DOM.resetBtn.classList.add('clicked');
+    setTimeout(() => DOM.resetBtn.classList.remove('clicked'), 300);
+    
+    // Hide floating reset button
+    DOM.floatingResetBtn.classList.remove('visible');
+}
+
+// Populate form with default values
+function populateFormWithDefaults() {
+    DOM.materialType.value = DEFAULT_VALUES.materialType;
+    DOM.filamentWeight.value = DEFAULT_VALUES.filamentWeight;
+    DOM.materialCost.value = DEFAULT_VALUES.materialCost;
+    DOM.printHours.value = DEFAULT_VALUES.printHours;
+    DOM.printMinutes.value = DEFAULT_VALUES.printMinutes;
+    DOM.electricityCost.value = DEFAULT_VALUES.electricityCost;
+    DOM.printerCost.value = DEFAULT_VALUES.printerCost;
+    DOM.maintenanceCost.value = DEFAULT_VALUES.maintenanceCost;
+    DOM.failureRate.value = DEFAULT_VALUES.failureRate;
+    DOM.profitMargin.value = DEFAULT_VALUES.profitMargin;
+}
+
+// Format currency with 2 decimal places
+function formatCurrency(value) {
+    return '$' + value.toFixed(2);
+}
+
+// Add ripple effect to buttons
+function addRippleEffect(event) {
+    const button = event.currentTarget;
+    const ripple = document.createElement('span');
+    
+    const rect = button.getBoundingClientRect();
+    const size = Math.max(rect.width, rect.height);
+    
+    ripple.style.width = ripple.style.height = `${size}px`;
+    ripple.style.left = `${event.clientX - rect.left - size / 2}px`;
+    ripple.style.top = `${event.clientY - rect.top - size / 2}px`;
+    
+    ripple.classList.add('ripple');
+    button.appendChild(ripple);
+    
+    button.classList.add('clicked');
+    
+    setTimeout(() => {
+        ripple.remove();
+        button.classList.remove('clicked');
     }, 600);
 }
 
-function updateLayout() {
-    // Adjust UI based on viewport height
-    const vh = window.innerHeight;
-    const calculator = document.querySelector('.calculator-box');
+// Toggle theme between light and dark mode
+function toggleTheme() {
+    document.body.classList.toggle('dark-mode');
+    updateThemeIcon();
     
-    if (vh < 600) {
-        // For very small screens (like landscape on phone)
-        calculator.classList.add('compact-view');
+    // If disco mode is on, turn it off
+    if (document.body.classList.contains('disco-mode')) {
+        document.body.classList.remove('disco-mode');
+        DOM.discoToggle.classList.remove('active');
+    }
+}
+
+// Update theme icon based on current theme
+function updateThemeIcon() {
+    if (DOM.themeToggle) {
+        const isDarkMode = document.body.classList.contains('dark-mode');
+        DOM.themeToggle.innerHTML = isDarkMode 
+            ? '<i class="fas fa-sun"></i>' 
+            : '<i class="fas fa-moon"></i>';
+    }
+}
+
+// Toggle disco mode
+function toggleDiscoMode() {
+    document.body.classList.toggle('disco-mode');
+    DOM.discoToggle.classList.toggle('active');
+    
+    // If dark mode is on, switch to light mode
+    if (document.body.classList.contains('dark-mode') && document.body.classList.contains('disco-mode')) {
+        document.body.classList.remove('dark-mode');
+        updateThemeIcon();
+    }
+}
+
+// Apply compact view for landscape mode on mobile
+function applyCompactViewIfNeeded() {
+    const isLandscape = window.innerWidth > window.innerHeight;
+    const isMobile = window.innerWidth < 768;
+    
+    if (isLandscape && isMobile) {
+        document.body.classList.add('compact-view');
     } else {
-        calculator.classList.remove('compact-view');
+        document.body.classList.remove('compact-view');
     }
 }
 
-function updateDefaultValues() {
-    const filamentType = document.getElementById('filamentType');
-    if (!filamentType) return;
-    
-    const defaults = filamentDefaults[filamentType.value];
-    
-    if (filamentType.value !== 'custom') {
-        const filamentCostInput = document.getElementById('filamentCost');
-        const printerWattageInput = document.getElementById('printerWattage');
-        
-        if (filamentCostInput) filamentCostInput.value = defaults.cost;
-        if (printerWattageInput) printerWattageInput.value = defaults.wattage;
-    }
-}
-
-function resetForm() {
-    // Reset to default filament type
-    const filamentType = document.getElementById('filamentType');
-    if (filamentType) filamentType.value = 'pla';
-    
-    // Reset all input fields to default values
-    const inputs = {
-        'filamentCost': filamentDefaults.pla.cost,
-        'printWeight': 100,
-        'printHours': 3,
-        'printMinutes': 0,
-        'electricityCost': 0.12,
-        'printerWattage': filamentDefaults.pla.wattage,
-        'failureRate': 10,
-        'laborCost': 0
+// Debounce function to limit how often a function is called
+function debounce(func, delay = 300) {
+    let timer;
+    return function(...args) {
+        clearTimeout(timer);
+        timer = setTimeout(() => func.apply(this, args), delay);
     };
-    
-    // Set each input value if element exists
-    Object.entries(inputs).forEach(([id, value]) => {
-        const input = document.getElementById(id);
-        if (input) input.value = value;
-    });
-    
-    // Reset result displays with fade effect
-    const resultElements = ['materialCost', 'powerCost', 'riskCost', 'laborCostResult', 'totalCost'];
-    resultElements.forEach(id => {
-        const element = document.getElementById(id);
-        if (element) {
-            element.classList.add('update-animation');
-            element.textContent = '$0.00';
-            setTimeout(() => {
-                if (element) element.classList.remove('update-animation');
-            }, 400);
-        }
-    });
-    
-    // Focus on the first input field
-    if (filamentType) filamentType.focus();
 }
 
-function calculateCost() {
-    try {
-        // Get input values and handle potential empty values
-        const getValue = (id) => {
-            const element = document.getElementById(id);
-            return element ? (parseFloat(element.value) || 0) : 0;
-        };
-        
-        const filamentCost = getValue('filamentCost');
-        const printWeight = getValue('printWeight');
-        const printHours = getValue('printHours');
-        const printMinutes = getValue('printMinutes');
-        const electricityCost = getValue('electricityCost');
-        const printerWattage = getValue('printerWattage');
-        const failureRate = getValue('failureRate');
-        const laborCost = getValue('laborCost');
+// Helper function to convert filament length to weight
+function lengthToWeight(length, diameter, density) {
+    // Calculate volume in cm³
+    const radius = diameter / 2;
+    const volume = Math.PI * radius * radius * length / 10; // cm³
+    
+    // Calculate weight in grams
+    return volume * density;
+}
 
-        // Calculate total print time in hours
-        const printTime = printHours + (printMinutes / 60);
+// Helper function to convert filament weight to length
+function weightToLength(weight, diameter, density) {
+    // Calculate volume in cm³
+    const volume = weight / density;
+    
+    // Calculate length in meters
+    const radius = diameter / 2;
+    const length = (volume * 10) / (Math.PI * radius * radius);
+    
+    return length;
+}
 
-        // Calculate costs
-        const materialCost = (filamentCost * printWeight) / 1000;
-        const powerCost = (printerWattage * printTime * electricityCost) / 1000;
-        const laborCostTotal = laborCost * printTime;
-        const subtotal = materialCost + powerCost + laborCostTotal;
-        const riskCost = subtotal * (failureRate / 100);
-        const totalCost = subtotal + riskCost;
-
-        // Update results with animations
-        updateCostDisplay('materialCost', materialCost);
-        updateCostDisplay('powerCost', powerCost);
-        updateCostDisplay('riskCost', riskCost);
-        updateCostDisplay('laborCostResult', laborCostTotal);
-        updateCostDisplay('totalCost', totalCost);
-        
-        // Scroll to results if they're not visible
-        // Only on small screens and only if calculation was triggered by button
-        if (window.innerWidth < 768 && document.activeElement === document.querySelector('.calculate-btn')) {
-            const resultsElement = document.getElementById('results');
-            if (resultsElement) {
-                const rect = resultsElement.getBoundingClientRect();
-                
-                if (rect.bottom > window.innerHeight) {
-                    resultsElement.scrollIntoView({ 
-                        behavior: 'smooth', 
-                        block: 'nearest',
-                        inline: 'nearest'
-                    });
-                }
+// Lazy load images
+function lazyLoadImages() {
+    if ('loading' in HTMLImageElement.prototype) {
+        // Browser supports native lazy loading
+        const images = document.querySelectorAll('img[data-src]');
+        images.forEach(img => {
+            img.src = img.dataset.src;
+            img.loading = 'lazy';
+            if (img.dataset.srcset) {
+                img.srcset = img.dataset.srcset;
             }
-        }
-    } catch (error) {
-        console.error("Error calculating cost:", error);
-    }
-}
-
-function updateCostDisplay(elementId, value) {
-    const element = document.getElementById(elementId);
-    if (!element) return;
-    
-    // Format with 2 decimal places and include dollar sign
-    const formattedValue = `$${formatNumber(value)}`;
-    
-    // Only animate if the value has changed
-    if (element.textContent !== formattedValue) {
-        // Add animation class
-        element.classList.add('update-animation');
-        element.textContent = formattedValue;
+        });
+    } else {
+        // Fallback for browsers that don't support native lazy loading
+        const lazyImages = [].slice.call(document.querySelectorAll('img[data-src]'));
         
-        // Remove animation class after animation completes
-        setTimeout(() => {
-            if (element) element.classList.remove('update-animation');
-        }, 400);
+        if ('IntersectionObserver' in window) {
+            const lazyImageObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const lazyImage = entry.target;
+                        lazyImage.src = lazyImage.dataset.src;
+                        if (lazyImage.dataset.srcset) {
+                            lazyImage.srcset = lazyImage.dataset.srcset;
+                        }
+                        lazyImageObserver.unobserve(lazyImage);
+                    }
+                });
+            });
+            
+            lazyImages.forEach(lazyImage => {
+                lazyImageObserver.observe(lazyImage);
+            });
+        } else {
+            // Fallback for older browsers without IntersectionObserver
+            const lazyLoad = () => {
+                const scrollTop = window.pageYOffset;
+                lazyImages.forEach(lazyImage => {
+                    if (lazyImage.offsetTop < window.innerHeight + scrollTop) {
+                        lazyImage.src = lazyImage.dataset.src;
+                        if (lazyImage.dataset.srcset) {
+                            lazyImage.srcset = lazyImage.dataset.srcset;
+                        }
+                        lazyImages = lazyImages.filter(image => image !== lazyImage);
+                        
+                        if (lazyImages.length === 0) {
+                            document.removeEventListener('scroll', lazyLoad);
+                            window.removeEventListener('resize', lazyLoad);
+                            window.removeEventListener('orientationchange', lazyLoad);
+                        }
+                    }
+                });
+            };
+            
+            document.addEventListener('scroll', debounce(lazyLoad, 200));
+            window.addEventListener('resize', debounce(lazyLoad, 200));
+            window.addEventListener('orientationchange', debounce(lazyLoad, 200));
+        }
     }
 }
 
-// Helper to format number with proper decimal places
-function formatNumber(value) {
-    // For values less than 0.1, show 3 decimal places
-    if (value < 0.1 && value > 0) {
-        return value.toFixed(3);
-    } 
-    // For values less than 100, show 2 decimal places
-    else if (value < 100) {
-        return value.toFixed(2);
-    } 
-    // For larger values, only show 1 decimal place
-    else {
-        return value.toFixed(1);
-    }
+// Ensure all links use HTTPS
+function ensureHttpsLinks() {
+    const links = document.querySelectorAll('a[href^="http://"]');
+    links.forEach(link => {
+        const href = link.getAttribute('href');
+        if (href.startsWith('http://')) {
+            link.setAttribute('href', href.replace('http://', 'https://'));
+        }
+    });
 } 
