@@ -206,6 +206,7 @@
   .navbar-icon {
     width: 28px;
     height: 28px;
+    margin: 0 auto;
   }
   
   .navbar-brand {
@@ -214,11 +215,31 @@
   
   .nav-blog-btn {
     font-size: 0.8rem;
-    padding: 0.2rem 0.6rem;
+    padding: 0.2rem 0.5rem;
   }
   
   .disco-toggle, .theme-toggle {
     font-size: 1rem;
     padding: 0.25rem;
+  }
+}
+
+/* For extra small screens */
+@media (max-width: 380px) {
+  .navbar-icon {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  
+  .nav-blog-btn {
+    font-size: 0.75rem;
+    padding: 0.15rem 0.4rem;
+    margin-right: 0.25rem !important;
+  }
+  
+  .disco-toggle, .theme-toggle {
+    font-size: 0.9rem;
+    padding: 0.2rem;
   }
 }
