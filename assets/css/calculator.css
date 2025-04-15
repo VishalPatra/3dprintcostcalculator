@@ -656,6 +656,10 @@ body.disco-mode {
     overflow-wrap: break-word;
     word-wrap: break-word;
     word-break: break-word;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
 }
 
 .footer a {
@@ -683,7 +687,7 @@ body.disco-mode {
 .social-icons {
     display: inline-flex;
     align-items: center;
-    margin-left: 10px;
+    margin-left: 8px;
     vertical-align: middle;
 }
 
@@ -691,13 +695,13 @@ body.disco-mode {
     display: inline-flex;
     justify-content: center;
     align-items: center;
-    width: 30px;
-    height: 30px;
+    width: 24px;
+    height: 24px;
     border-radius: 50%;
     background: rgba(255, 255, 255, 0.1);
     color: #fff;
-    margin: 0 3px;
-    font-size: 16px;
+    margin: 0 2px;
+    font-size: 14px;
     text-decoration: none;
     transition: all 0.3s ease;
 }
@@ -710,16 +714,15 @@ body.disco-mode {
 }
 
 @media (max-width: 767px) {
-    .social-icons {
-        margin-top: 10px;
-        margin-left: 0;
-        display: block;
+    .footer p {
+        flex-direction: row; /* Keep it as row even on mobile */
+        justify-content: center;
+        gap: 5px;
     }
     
-    .footer p {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
+    .social-icons {
+        margin-left: 5px;
+        display: inline-flex; /* Force inline display */
     }
 }
 
