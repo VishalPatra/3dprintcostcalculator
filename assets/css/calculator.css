@@ -681,21 +681,23 @@ body.disco-mode {
 }
 
 .social-icons {
-    display: none;
-    margin-top: 15px;
+    display: inline-flex;
+    align-items: center;
+    margin-left: 10px;
+    vertical-align: middle;
 }
 
 .social-icons a {
     display: inline-flex;
     justify-content: center;
     align-items: center;
-    width: 35px;
-    height: 35px;
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
     background: rgba(255, 255, 255, 0.1);
     color: #fff;
-    margin: 0 5px;
-    font-size: 18px;
+    margin: 0 3px;
+    font-size: 16px;
     text-decoration: none;
     transition: all 0.3s ease;
 }
@@ -707,9 +709,17 @@ body.disco-mode {
     text-decoration: none;
 }
 
-@media (min-width: 768px) {
+@media (max-width: 767px) {
     .social-icons {
+        margin-top: 10px;
+        margin-left: 0;
+        display: block;
+    }
+    
+    .footer p {
         display: flex;
+        flex-direction: column;
+        align-items: center;
     }
 }
 
