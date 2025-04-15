@@ -1,6 +1,24 @@
 .blog-wrapper {
   padding: 120px 0 60px;
   min-height: 80vh;
+  position: relative;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.5);
+    z-index: -1;
+  }
+}
+
+.dark-mode .blog-wrapper {
+  &::before {
+    background: rgba(33, 37, 41, 0.5);
+  }
 }
 
 .blog-content {
@@ -14,6 +32,7 @@
 .dark-mode .blog-content {
   background: rgba(33, 37, 41, 0.95);
   color: #f8f9fa;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 }
 
 .breadcrumbs {
@@ -57,6 +76,8 @@
 
 .blog-item:last-child {
   border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
 }
 
 .blog-item h2 {
@@ -66,6 +87,7 @@
 .blog-item h2 a {
   color: #343a40;
   text-decoration: none;
+  transition: color 0.2s;
 }
 
 .dark-mode .blog-item h2 a {
@@ -94,6 +116,18 @@
   margin-bottom: 1rem;
 }
 
+.blog-excerpt img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin: 1rem 0;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.dark-mode .blog-excerpt img {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
 .blog-read-more {
   display: inline-block;
   padding: 0.375rem 0.75rem;
@@ -102,11 +136,13 @@
   border-radius: 0.25rem;
   text-decoration: none;
   font-size: 0.9rem;
+  transition: all 0.2s;
 }
 
 .blog-read-more:hover {
   background-color: #1971c2;
   color: white;
+  transform: translateY(-2px);
 }
 
 .blog-post-content img {
@@ -117,9 +153,28 @@
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
+.dark-mode .blog-post-content img {
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.blog-post-content h1 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  color: #343a40;
+}
+
+.dark-mode .blog-post-content h1 {
+  color: #f8f9fa;
+}
+
 .blog-post-content h2 {
   margin-top: 2rem;
   margin-bottom: 1rem;
+  color: #343a40;
+}
+
+.dark-mode .blog-post-content h2 {
+  color: #f8f9fa;
 }
 
 .blog-post-content p {
@@ -134,5 +189,13 @@
   
   .blog-content {
     padding: 1.5rem;
+  }
+  
+  .blog-post-content h1 {
+    font-size: 1.75rem;
+  }
+  
+  .blog-post-content h2 {
+    font-size: 1.4rem;
   }
 } 
