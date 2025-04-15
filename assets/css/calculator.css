@@ -638,14 +638,18 @@ body.disco-mode {
     backdrop-filter: blur(5px);
     -webkit-backdrop-filter: blur(5px);
     box-shadow: 0 -3px 10px rgba(0, 0, 0, 0.2);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
 }
 
 .dark-mode .footer {
     background: rgba(18, 20, 23, 0.9);
+}
+
+.footer-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    max-width: 100%;
 }
 
 .footer p {
@@ -656,10 +660,6 @@ body.disco-mode {
     overflow-wrap: break-word;
     word-wrap: break-word;
     word-break: break-word;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-wrap: wrap;
 }
 
 .footer a {
@@ -684,45 +684,44 @@ body.disco-mode {
     color: var(--dark-link-hover);
 }
 
-.social-icons {
-    display: inline-flex;
+.social-links {
+    display: flex;
     align-items: center;
-    margin-left: 8px;
-    vertical-align: middle;
+    justify-content: center;
+    margin-top: 12px;
+    gap: 10px;
 }
 
-.social-icons a {
+.social-links a {
     display: inline-flex;
     justify-content: center;
     align-items: center;
-    width: 24px;
-    height: 24px;
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
     background: rgba(255, 255, 255, 0.1);
     color: #fff;
-    margin: 0 2px;
-    font-size: 14px;
+    font-size: 16px;
     text-decoration: none;
     transition: all 0.3s ease;
 }
 
-.social-icons a:hover {
+.social-links a:hover {
     background: rgba(255, 255, 255, 0.2);
     transform: translateY(-3px);
     color: #fff;
     text-decoration: none;
 }
 
-@media (max-width: 767px) {
-    .footer p {
-        flex-direction: row; /* Keep it as row even on mobile */
+@media (min-width: 768px) {
+    .footer-content {
+        flex-direction: row;
         justify-content: center;
-        gap: 5px;
+        gap: 20px;
     }
     
-    .social-icons {
-        margin-left: 5px;
-        display: inline-flex; /* Force inline display */
+    .social-links {
+        margin-top: 0;
     }
 }
 
