@@ -7,7 +7,7 @@ layout: default
   <!-- Material Settings -->
   <div class="section-group">
     <h3>Material Settings</h3>
-    <div class="input-group">
+    <div class="input-group inline">
       <label for="filamentType">Filament Type:</label>
       <select id="filamentType" onchange="updateDefaultValues()">
         <option value="pla">PLA</option>
@@ -18,7 +18,7 @@ layout: default
       </select>
     </div>
     
-    <div class="input-group">
+    <div class="input-group inline">
       <label for="filamentCost">Filament Cost (per kg):</label>
       <div class="input-with-unit">
         <input type="number" id="filamentCost" value="20" step="0.01">
@@ -26,7 +26,7 @@ layout: default
       </div>
     </div>
 
-    <div class="input-group">
+    <div class="input-group inline">
       <label for="printWeight">Estimated Print Weight (g):</label>
       <div class="input-with-unit">
         <input type="number" id="printWeight" value="100" step="0.1">
@@ -38,7 +38,7 @@ layout: default
   <!-- Time & Power Settings -->
   <div class="section-group">
     <h3>Time & Power Settings</h3>
-    <div class="input-group">
+    <div class="input-group inline">
       <label for="printTime">Estimated Print Time:</label>
       <div class="time-inputs">
         <input type="number" id="printHours" value="3" min="0" placeholder="Hours">
@@ -48,7 +48,7 @@ layout: default
       </div>
     </div>
 
-    <div class="input-group">
+    <div class="input-group inline">
       <label for="electricityCost">Electricity Cost:</label>
       <div class="input-with-unit">
         <input type="number" id="electricityCost" value="0.12" step="0.01">
@@ -56,7 +56,7 @@ layout: default
       </div>
     </div>
 
-    <div class="input-group">
+    <div class="input-group inline">
       <label for="printerWattage">Printer Power Usage:</label>
       <div class="input-with-unit">
         <input type="number" id="printerWattage" value="150" step="1">
@@ -68,7 +68,7 @@ layout: default
   <!-- Additional Costs -->
   <div class="section-group">
     <h3>Additional Costs</h3>
-    <div class="input-group">
+    <div class="input-group inline">
       <label for="failureRate">Failure Rate:</label>
       <div class="input-with-unit">
         <input type="number" id="failureRate" value="10" min="0" max="100" step="1">
@@ -76,7 +76,7 @@ layout: default
       </div>
     </div>
 
-    <div class="input-group">
+    <div class="input-group inline">
       <label for="laborCost">Labor Cost (per hour):</label>
       <div class="input-with-unit">
         <input type="number" id="laborCost" value="0" step="0.01">

@@ -895,4 +895,46 @@ body.disco-mode {
 @keyframes disco-particles {
     0% { filter: hue-rotate(0deg); }
     100% { filter: hue-rotate(360deg); }
+}
+
+/* Inline input group - for fields that need label and input on same line */
+.input-group.inline {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.input-group.inline label {
+    display: inline-block;
+    margin-bottom: 0;
+    min-width: 130px;
+    flex-shrink: 0;
+}
+
+.input-group.inline .input-with-unit,
+.input-group.inline select,
+.input-group.inline .time-inputs {
+    flex: 1;
+    min-width: 150px;
+}
+
+/* Media query for small screens to stack inline form elements */
+@media (max-width: 575px) {
+    .input-group.inline {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+    
+    .input-group.inline label {
+        min-width: 100%;
+        margin-bottom: 0.5rem;
+    }
+    
+    .input-group.inline .input-with-unit,
+    .input-group.inline select,
+    .input-group.inline .time-inputs {
+        width: 100%;
+    }
 } 
