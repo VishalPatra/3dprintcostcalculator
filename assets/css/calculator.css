@@ -5,7 +5,7 @@
     --primary-hover: linear-gradient(to right, #1864ab, #1c7ed6);
     --primary-shadow: rgba(25, 113, 194, 0.3);
     --primary-shadow-hover: rgba(25, 113, 194, 0.4);
-    --light-bg: rgba(255, 255, 255, 0.9);
+    --light-bg: rgba(255, 255, 255, 0.9); /* 10% transparency */
     --light-section-bg: rgba(248, 249, 250, 0.8);
     --light-section-hover: rgba(248, 249, 250, 0.95);
     --light-text: #212529;
@@ -16,7 +16,7 @@
     --light-link: #1971c2;
     --light-link-hover: #1864ab;
     
-    --dark-bg: rgba(33, 37, 41, 0.9);
+    --dark-bg: rgba(33, 37, 41, 0.9); /* 10% transparency */
     --dark-section-bg: rgba(52, 58, 64, 0.8);
     --dark-section-hover: rgba(52, 58, 64, 0.95);
     --dark-text: #f8f9fa;
@@ -180,7 +180,7 @@ body.disco-mode {
 .calculator-wrapper {
     display: flex;
     justify-content: center;
-    align-items: flex-start;
+    align-items: flex-start; /* Changed from center to flex-start for better space usage */
     min-height: 100vh;
     padding: 70px 15px 30px;
     position: relative;
@@ -189,7 +189,7 @@ body.disco-mode {
 }
 
 .calculator-box {
-    background: rgba(255, 255, 255, 0.9);
+    background: rgba(255, 255, 255, 0.9); /* 10% transparency */
     padding: 1.5rem;
     border-radius: var(--card-radius);
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
@@ -205,7 +205,7 @@ body.disco-mode {
 }
 
 .dark-mode .calculator-box {
-    background: rgba(33, 37, 41, 0.9);
+    background: rgba(33, 37, 41, 0.9); /* 10% transparency */
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
 }
 
@@ -754,21 +754,21 @@ body.disco-mode {
 @media (min-width: 992px) {
     .calculator-wrapper {
         padding-top: 80px;
-        align-items: flex-start;
+        align-items: flex-start; /* Changed from center to flex-start for better space usage */
     }
     
     .calculator-box {
-        max-width: 1000px;
+        max-width: 1000px; /* Increased from 900px to use more horizontal space */
         padding: 2rem;
         display: grid;
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(3, 1fr); /* Changed from 2 columns to 3 for better space usage */
         grid-column-gap: 1.5rem;
         grid-template-areas:
             "title title title"
             "materials time additional"
             "calculate calculate calculate"
             "results results results";
-        margin-top: 1.5rem;
+        margin-top: 1.5rem; /* Added margin to prevent content from getting hidden under navbar */
     }
     
     .calculator-box h2 {
@@ -817,13 +817,9 @@ body.disco-mode {
         font-size: 1.2rem;
     }
     
-    .ad-placeholder {
-        min-height: 150px;
-    }
-    
     .cost-grid {
         gap: 0.8rem;
-        grid-template-columns: repeat(4, 1fr);
+        grid-template-columns: repeat(4, 1fr); /* Always show 4 columns on desktop */
     }
     
     .results h3 {
@@ -840,7 +836,7 @@ body.disco-mode {
     .calculator-box {
         max-width: 1200px;
         grid-column-gap: 2rem;
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(3, 1fr); /* Keep 3 columns */
         padding-bottom: 1.5rem;
     }
     
