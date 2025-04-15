@@ -680,6 +680,39 @@ body.disco-mode {
     color: var(--dark-link-hover);
 }
 
+.social-icons {
+    display: none;
+    margin-top: 15px;
+}
+
+.social-icons a {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    margin: 0 5px;
+    font-size: 18px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.social-icons a:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-3px);
+    color: #fff;
+    text-decoration: none;
+}
+
+@media (min-width: 768px) {
+    .social-icons {
+        display: flex;
+    }
+}
+
 /* Responsive styles */
 @media (min-width: 576px) {
     .navbar-brand {
