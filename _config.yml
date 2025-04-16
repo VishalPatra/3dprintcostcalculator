@@ -2,7 +2,7 @@
 title: 3D Print Cost Calculator
 description: Free online calculator for estimating 3D printing costs including materials, electricity, and labor
 baseurl: "" # the subpath of your site, e.g. /blog/
-url: "https://vishalpatra.github.io" # the base hostname & protocol for your site
+url: "https://3dprintcostcalculator.com" # the base hostname & protocol for your site
 
 # User settings
 username: Vishal Patra
@@ -10,9 +10,15 @@ user_description: A simple, responsive calculator for estimating 3D printing cos
 user_title: 3D Print Cost Calculator
 email: your-email@domain.com
 github_username: vishalpatra
+linkedin_username: vishalpatra
+instagram_username: thirddimensionalprints
 
 # Google-analytics
 google-analytics:
-  id: ""
+  id: "G-TCYVDCEP0W"
 
+# Google AdSense
+google-adsense:
+  publisher-id: "pub-8953007004561903"
+  
 exclude: ['package.json', 'src' , 'node_modules']

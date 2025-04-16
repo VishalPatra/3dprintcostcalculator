@@ -236,6 +236,7 @@ body.disco-mode {
 
 .calculator-box {
     background: var(--light-bg);
+    background-color: rgba(255, 255, 255, 0.95);
     padding: 1.5rem;
     border-radius: 15px;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
@@ -317,6 +318,7 @@ body.disco-mode {
     color: var(--light-text-secondary);
     font-weight: 500;
     font-size: 0.9rem;
+    line-height: 1.5;
 }
 
 .dark-mode .input-group label {
@@ -334,6 +336,8 @@ body.disco-mode {
     background-color: rgba(255, 255, 255, 0.9);
     -webkit-appearance: none;
     appearance: none;
+    height: 48px;
+    box-sizing: border-box;
 }
 
 .dark-mode .input-group select,
@@ -399,17 +403,23 @@ body.disco-mode {
     display: flex;
     align-items: center;
     gap: 0.5rem;
+    position: relative;
 }
 
 .input-with-unit input {
     flex: 1;
+    padding-right: 50px; /* Make room for the unit */
 }
 
 .input-with-unit .unit {
     color: #495057;
     font-size: 0.85rem;
-    min-width: 30px;
+    min-width: 40px;
     text-align: left;
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
 }
 
 .dark-mode .input-with-unit .unit {
@@ -425,10 +435,13 @@ body.disco-mode {
 
 .time-inputs input {
     width: 100%;
+    text-align: center;
 }
 
 .time-inputs span {
     color: #495057;
+    width: 15px;
+    text-align: center;
 }
 
 .dark-mode .time-inputs span {
@@ -540,6 +553,7 @@ body.disco-mode {
 .cost-item {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     padding: 0.7rem 1rem;
     background: rgba(255, 255, 255, 0.9);
     border-radius: 8px;
@@ -565,6 +579,8 @@ body.disco-mode {
     color: var(--light-text-secondary);
     font-weight: 500;
     font-size: 0.9rem;
+    margin-bottom: 0;
+    white-space: nowrap;
 }
 
 .dark-mode .cost-item label {
@@ -574,6 +590,8 @@ body.disco-mode {
 .cost-item span {
     color: var(--primary-color);
     font-weight: 600;
+    text-align: right;
+    min-width: 70px;
 }
 
 .dark-mode .cost-item span {
@@ -626,9 +644,22 @@ body.disco-mode {
     background: rgba(18, 20, 23, 0.9);
 }
 
+.footer-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    max-width: 100%;
+}
+
 .footer p {
     margin: 0;
     color: #fff;
+    text-align: center;
+    max-width: 100%;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    word-break: break-word;
 }
 
 .footer a {
@@ -636,6 +667,8 @@ body.disco-mode {
     text-decoration: none;
     transition: color 0.3s;
     text-decoration: underline;
+    white-space: nowrap;
+    display: inline-block;
 }
 
 .dark-mode .footer a {
@@ -649,6 +682,47 @@ body.disco-mode {
 
 .dark-mode .footer a:hover {
     color: var(--dark-link-hover);
+}
+
+.social-links {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 12px;
+    gap: 10px;
+}
+
+.social-links a {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    font-size: 16px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.social-links a:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-3px);
+    color: #fff;
+    text-decoration: none;
+}
+
+@media (min-width: 768px) {
+    .footer-content {
+        flex-direction: row;
+        justify-content: center;
+        gap: 20px;
+    }
+    
+    .social-links {
+        margin-top: 0;
+    }
 }
 
 /* Responsive styles */
@@ -785,7 +859,7 @@ body.disco-mode {
     }
     
     .cost-grid {
-        grid-template-columns: repeat(4, 1fr);
+        grid-template-columns: repeat(2, 1fr);
         gap: 1.5rem;
     }
 }
@@ -877,4 +951,46 @@ body.disco-mode {
 @keyframes disco-particles {
     0% { filter: hue-rotate(0deg); }
     100% { filter: hue-rotate(360deg); }
+}
+
+/* Inline input group - for fields that need label and input on same line */
+.input-group.inline {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.input-group.inline label {
+    display: inline-block;
+    margin-bottom: 0;
+    min-width: 130px;
+    flex-shrink: 0;
+}
+
+.input-group.inline .input-with-unit,
+.input-group.inline select,
+.input-group.inline .time-inputs {
+    flex: 1;
+    min-width: 150px;
+}
+
+/* Media query for small screens to stack inline form elements */
+@media (max-width: 575px) {
+    .input-group.inline {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+    
+    .input-group.inline label {
+        min-width: 100%;
+        margin-bottom: 0.5rem;
+    }
+    
+    .input-group.inline .input-with-unit,
+    .input-group.inline select,
+    .input-group.inline .time-inputs {
+        width: 100%;
+    }
 } 

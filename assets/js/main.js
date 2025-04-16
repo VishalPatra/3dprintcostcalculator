@@ -22,6 +22,12 @@ window.addEventListener("load", function() {
 
 // Initialize particles.js with optimized settings
 function initParticles(customColor) {
+  // Make sure the particles canvas has the right z-index to be visible on all pages
+  const particlesContainer = document.getElementById('particles-js');
+  if (particlesContainer) {
+    particlesContainer.style.zIndex = '-2';
+  }
+  
   particlesJS('particles-js', {
     "particles": {
       "number": {

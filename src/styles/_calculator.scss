@@ -8,7 +8,7 @@
 }
 
 .calculator-box {
-    background: rgba(255, 255, 255, 0.98);
+    background: rgba(255, 255, 255, 0.95);
     padding: 2rem;
     border-radius: 15px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
@@ -31,19 +31,23 @@
 
     h3 {
         color: #2c3e50;
-        margin-bottom: 1rem;
+        margin-bottom: 1.2rem;
         font-size: 1.2rem;
+        font-weight: 600;
     }
 }
 
 .input-group {
-    margin-bottom: 1rem;
+    margin-bottom: 1.2rem;
+    display: flex;
+    flex-direction: column;
 
     label {
         display: block;
-        margin-bottom: 0.5rem;
+        margin-bottom: 0.6rem;
         color: #495057;
         font-weight: 500;
+        font-size: 0.95rem;
     }
 
     select, input {
@@ -64,7 +68,7 @@
 .input-with-unit {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 0.75rem;
 
     input {
         flex: 1;
@@ -74,6 +78,7 @@
         color: #6c757d;
         font-size: 0.9rem;
         min-width: 45px;
+        font-weight: 500;
     }
 }
 
@@ -171,9 +176,74 @@
     100% { transform: scale(1); }
 }
 
+// Dark Mode Styles
+.dark-mode {
+    .calculator-box {
+        background: rgba(33, 37, 41, 0.95);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+
+        h2 {
+            color: #f8f9fa;
+        }
+    }
+
+    .section-group {
+        background: #343a40;
+        border: 1px solid #495057;
+
+        h3 {
+            color: #f8f9fa;
+        }
+    }
+
+    .input-group {
+        label {
+            color: #ced4da;
+        }
+
+        select, input {
+            background-color: #495057;
+            border-color: #6c757d;
+            color: #f8f9fa;
+
+            &:focus {
+                border-color: #4dabf7;
+            }
+        }
+    }
+
+    .input-with-unit .unit {
+        color: #adb5bd;
+    }
+
+    .time-inputs span {
+        color: #adb5bd;
+    }
+
+    .results {
+        background: #343a40;
+
+        h3 {
+            color: #f8f9fa;
+        }
+    }
+
+    .cost-item {
+        background: #495057;
+
+        label {
+            color: #ced4da;
+        }
+
+        span {
+            color: #74c0fc;
+        }
+    }
+}
+
 @media (max-width: 480px) {
     .calculator-box {
-        padding: 1rem;
+        padding: 1.25rem;
     }
 
     .section-group {
@@ -182,5 +252,28 @@
 
     .cost-grid {
         grid-template-columns: 1fr;
+    }
+    
+    .input-group {
+        margin-bottom: 1rem;
+        
+        label {
+            margin-bottom: 0.4rem;
+            font-size: 0.9rem;
+        }
+        
+        select, input {
+            padding: 0.6rem;
+            font-size: 0.95rem;
+        }
+    }
+    
+    .input-with-unit {
+        gap: 0.5rem;
+        
+        .unit {
+            min-width: 35px;
+            font-size: 0.85rem;
+        }
     }
 } 
