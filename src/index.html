@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>8000ers Explorer</title>
+    <link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body>
+    <div id="particles-js"></div>
+    
+    <header>
+        <nav>
+            <ul>
+                <li><a href="#home" data-scroll>Home</a></li>
+                <li><a href="#visualization" data-scroll>8000ers</a></li>
+                <li><a href="#about" data-scroll>About</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Home Section -->
+        <section id="home" class="hero">
+            <div class="container">
+                <h1>8000ers Explorer</h1>
+                <p class="tagline">Visual Journey Through the World's Highest Peaks</p>
+                <div class="cta-buttons">
+                    <a href="#visualization" class="btn primary" data-scroll>Explore Peaks</a>
+                    <a href="#about" class="btn secondary" data-scroll>Learn More</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Visualization Section -->
+        <section id="visualization" class="visualization-section">
+            <div class="viz-container">
+                <div id="mountain-viz"></div>
+                <div id="mountain-info" class="mountain-info">
+                    <h3>Select a mountain</h3>
+                    <div class="info-content"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="about">
+            <div class="container">
+                <h2>About This Project</h2>
+                <p>An interactive exploration of the fourteen 8000-meter peaks in the world.</p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Vishal Patra. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="assets/js/vendor/d3.min.js"></script>
+    <script src="assets/js/vendor/particles.js"></script>
+    <script src="assets/js/vendor/sweet-scroll.min.js"></script>
+    <script src="assets/js/app.js"></script>
+</body>
+</html> 
